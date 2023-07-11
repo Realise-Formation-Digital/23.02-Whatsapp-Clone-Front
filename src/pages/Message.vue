@@ -1,5 +1,5 @@
 <template>
-    message
+    message 
   </template>
   
   <script>
