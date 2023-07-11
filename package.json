@@ -15,7 +15,8 @@
     "socket.io": "^4.7.1",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
-    "vuetify": "^3.3.7"
+    "vuetify": "^3.3.7",
+    "vite": "^4.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",
