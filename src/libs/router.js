@@ -5,7 +5,8 @@ import Messages from "../pages/Messages.vue";
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
-  { path: '/messages', component: Message }]
+  { path: '/messages', component: Messages }
+]
   
 const router = createRouter({
   routes: routes,
