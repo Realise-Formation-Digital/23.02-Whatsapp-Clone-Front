@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from "../pages/Home.vue";
 import Login from "../pages/Login.vue";
-import Message from "../pages/Message.vue";
+import Messages from "../pages/Messages.vue";
 const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
-  { path: '/message', component: Message }
+  { path: '/messages', component: Message }
 
 ]
 
