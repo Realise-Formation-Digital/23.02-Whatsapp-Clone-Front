@@ -1,11 +1,6 @@
 <template>
-  lalal
-  <v-main>
-
-  </v-main>
-  <v-footer-app>
+ 
     <InputMessage/>
-  </v-footer-app>
   
 </template>
 
