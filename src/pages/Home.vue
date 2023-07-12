@@ -1,7 +1,7 @@
 <template>
   home
 </template>
-
+ 
 <script>
 import {defineComponent} from 'vue'
 import dayjs from 'dayjs';
