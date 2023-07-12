@@ -1,12 +1,17 @@
 <template>
-  messages
+ 
+    <InputMessage/>
+  
 </template>
 
 <script>
 import {defineComponent} from 'vue'
+import InputMessage from '../components/InputMessage.vue'
+
 
 export default defineComponent({
-  name: "Home"
+  name: "Messages",
+  components:{InputMessage}
 })
 </script>
 
