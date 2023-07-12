@@ -8,7 +8,10 @@ var dayjs = {
             dayjs();
         },
         formattedDate () {
-            today.format('DD-MM-YYYY-HH-MM-SS');
+            today.format('DD-MM-YYYY-HH-mm-ss-Z:+05:00','DD-MM-YYYY','DD-MM-YYYY-HH-mm-ss','DD-MM-YYYY-HH-mm');
+        },
+        localDate () {
+            dayjs.local()
         }
 
       }
