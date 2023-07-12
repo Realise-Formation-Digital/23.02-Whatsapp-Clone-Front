@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.2.96",
     "@mdi/js": "^7.2.96",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
