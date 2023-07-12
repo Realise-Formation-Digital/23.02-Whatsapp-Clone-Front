@@ -1,11 +1,11 @@
 <template>
     <!-- <v-container>
-        Possibilité de recupérer le message  via : {{ text }}
+        Possibilité de recupérer le message  via : {{ msgText }}
     </v-container> -->
 
     <v-container>
     <v-textarea
-      v-model="text"
+      v-model="msgText"
     ></v-textarea>
   </v-container>
 </template>
@@ -15,7 +15,7 @@
 export default {
     data() {
         return {
-            text:'',
+            msgText:'',
         };
     },
 };
