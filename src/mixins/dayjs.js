@@ -7,8 +7,8 @@ var dayjs = {
         today () {
             dayjs();
         },
-        formattedDate () {
-            today.format('DD-MM-YYYY-HH-mm-ss-Z:+05:00','DD-MM-YYYY','DD-MM-YYYY-HH-mm-ss','DD-MM-YYYY-HH-mm');
+        formattedDate () {  //12-07-2023:12:16:30                                                              Wed, 12-07-2023:12:17:30
+            today.format('DD-MM-YYYY:HH:mm:ss-Z:+05:00','DD-MM-YYYY','DD-MM-YYYY:HH:mm:ss','DD-MM-YYYY:HH:mm','ddd, DD-MM-YYYY:HH:mm:ss');
         },
         localDate () {
             dayjs.local()
