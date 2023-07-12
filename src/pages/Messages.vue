@@ -1,6 +1,6 @@
 <template>
- 
-    <InputMessage/>
+      
+    <InputMessage @sendme="handleMessage"/>
   
 </template>
 
@@ -9,9 +9,15 @@ import {defineComponent} from 'vue'
 import InputMessage from '../components/InputMessage.vue'
 
 
+
 export default defineComponent({
   name: "Messages",
-  components:{InputMessage}
+  components:{InputMessage},
+  methods:{
+    handleMessage(data){
+      console.log(data)
+    }
+  }
 })
 </script>
 
