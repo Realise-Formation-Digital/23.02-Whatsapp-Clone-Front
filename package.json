@@ -12,6 +12,7 @@
     "@mdi/js": "^7.2.96",
     "axios": "^1.4.0",
     "dayjs": "^1.11.9",
+    "dayjs-plugin-utc": "^0.1.2",
     "pinia": "^2.1.4",
     "socket.io": "^4.7.1",
     "vite": "^4.4.0",
