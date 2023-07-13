@@ -1,12 +1,17 @@
 <template>
-  messages
+  <chatList>
+  </chatList>
 </template>
 
 <script>
 import {defineComponent} from 'vue'
+import chatList from '../components/chatList.vue'
 
 export default defineComponent({
-  name: "Home"
+  name: "Home",
+  components:{
+    chatList
+  }
 })
 </script>
 
