@@ -1,23 +1,25 @@
 <template>
-      
-    <InputMessage @sendme="handleMessage"/>
-  
+  <userProfil>
+  </userProfil>
+  <InputMessage @sendme="handleMessage" />
+
   <chatList>
   </chatList>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import { defineComponent } from 'vue'
+import chatCard from '../components/chatCard.vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
-
+import userProfil from '../components/userProfil.vue'
 
 
 export default defineComponent({
   name: "Messages",
-  components:{InputMessage, chatList},
-  methods:{
-    handleMessage(data){
+  components: { InputMessage, chatList, userProfil, chatCard },
+  methods: {
+    handleMessage(data) {
       console.log(data)
     }
   }
@@ -25,6 +27,4 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
