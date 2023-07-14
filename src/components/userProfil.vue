@@ -11,9 +11,9 @@
     </v-container>
 </template>
 <script>
-import VueToyFace from "../../node_modules/vue-toy-face";
+// import VueToyFace from "../../node_modules/vue-toy-face";
 export default {
-    components: { VueToyFace },
+    // components: { VueToyFace },
 };
 </script>
 <style>
