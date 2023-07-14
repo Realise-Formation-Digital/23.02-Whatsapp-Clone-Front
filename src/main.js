@@ -3,6 +3,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from "./libs/router.js";
 import vuetify from "./libs/vuetify.js";
+import './libs/socket.js'
 import dayjs from 'dayjs';
 import utcPlugin from 'dayjs-plugin-utc';
 import pinia from './libs/pinia.js'// import VueToyFace from 'vue-toy-face'
