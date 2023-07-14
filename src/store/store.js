@@ -10,10 +10,17 @@ const chatStore = defineStore('chat', {
     getUserName: (state) => state.userName
   },
   actions:{
-    async postUser(body) {
-      console.log("[chatStore][Post] post user name", route, body);
+    setUserName(value){
+      this.userName = value
+    },
+
+    async postUser(userName) {
+      let json = {
+        "username" : userName
+      }
+      console.log("[chatStore][Post] post user name",json);
       try{
-        const result = await AxiosLib.post("http://localhost:3001/users/login", body)
+        const result = await AxiosLib.postUser(urls.userLogin, json)
         console.log(result)
       }catch(e){
       throw new Error(e)

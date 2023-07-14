@@ -5,13 +5,13 @@
     
   <v-sheet rounded="xl" h-screen min-width="330" max-width="340">
     <v-card rounded="lg" class="px-6 py-8 bg-cyan-lighten-4 text-center" >
-      <v-avatar class="mb-6" icon="mdi-account"  size="x-large"></v-avatar>
-      <p class="mb-4">{{ chatStore.getUserName }}</p>    
+      <v-avatar class="mb-6" icon="mdi-account"  size="x-large"></v-avatar>   
       <v-form>
         <v-text-field
-            v-model="chatStore.getUserName"
+            v-model="userName"
             label="User name"
             clearable
+            :rules="nameRules"
             >
         </v-text-field>  
         <br>
@@ -21,7 +21,8 @@
           size="large"
           type="submit"
           variant="elevated"
-          @click.prevent="login(chatStore.getUserName)"
+          @click.prevent="login()"
+          
         >
           Login
         </v-btn>
@@ -44,18 +45,34 @@ export default defineComponent({
   name: "Login",
   data: () => {
     return {
-      
+      userName:'',
+      nameRules: [
+        value => {
+          if (value) return true
+
+          return 'Name is required.'
+        },
+      ]
     }
   },
   computed: {
     ...mapStores(chatStore)
   },
   methods: {
-    async login(body) {
-      console.log("[LoginVue][Post] post user name", route, body);
-      await 
-      this.$router.push('/messages')
-      console.log(chatStore.getUserName)
+    newUserName(){
+      this.chatStore.setUserName(this.userName)
+    },
+    
+    async login() {
+      if(this.userName !== ''){
+        console.log("[LoginVue][Post] post user name", this.userName);
+        this.newUserName()
+        await this.chatStore.postUser(this.userName)
+        this.$router.push('/messages')
+        console.log(this.chatStore.getUserName)
+      } else {
+        console.log('error')
+      }
     }
   }
 })
