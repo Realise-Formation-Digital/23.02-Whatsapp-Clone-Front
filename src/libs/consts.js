@@ -1,6 +1,6 @@
 const urls = {
     message: 'messages',
-    userLogin: 'login'
+    userLogin: 'users/login'
 }
 
 export {urls}
