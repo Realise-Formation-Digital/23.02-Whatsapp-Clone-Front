@@ -1,5 +1,5 @@
 <template>
-    <div :class="`${sender}` == '' ? 'd-flex justify-end' : 'd-flex justify-start'">
+    <div :class="sender == 'Tom'  ? 'd-flex justify-end' : 'd-flex justify-start'">
         <div class="border rounded-xl rounded-be-0 messageFitContent" >
             <h5 class="pa-3">
                 Sender: {{ sender }}

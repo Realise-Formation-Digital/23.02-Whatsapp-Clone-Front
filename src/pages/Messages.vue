@@ -26,12 +26,20 @@ export default defineComponent({
   },
   methods: {
     handleMessage(data) {
-      console.log(data)
+      let json = {
+       "message": data,
+       "roomId": this.chatStore.getRoomId,
+       "sender": this.chatStore.getUserName
+      }
+      if(json.message && json.roomId && json.sender !== '') {
+        console.log(data)
+        this.chatStore.postMessage(json) 
+      } else {
+        console.error('error :)')
+      }
     }
-  },
-  sendMessage(body){
     
-  }
+  },
 })
 
 </script>
