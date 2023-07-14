@@ -4,7 +4,7 @@
     <userProfil></userProfil>
     <ChatBanner></ChatBanner>
   </v-app-bar>
-  <v-navigation-drawer>
+  <v-navigation-drawer app permanent>
     <chatList></chatList>
   </v-navigation-drawer>
   <v-main>

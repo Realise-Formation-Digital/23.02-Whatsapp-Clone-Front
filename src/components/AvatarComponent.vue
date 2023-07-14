@@ -1,36 +1,34 @@
 <template>
-    <span :style="avatarStyle" v-bind="$attrs" />
-  </template>
-  
-  <script>
-  import { defineComponent } from "vue";
-  
-  export default defineComponent({
-    props: {
-      size: {
-        type: [Number, String],
-        default: 48,
-      },
-      rounded: {
-        type: [Number, String],
-        default: 0,
-      },
-      toyNumber: {
-        type: [Number, String],
-        default: 1,
-        validator(value) {
-          return value >= 1 && value <= 18;
-        },
-      },
-      group: {
-        type: [Number, String],
-        default: 1,
-        validator(value) {
-          return value >= 1 && value <= 2;
-        },
+  <span :style="avatarStyle" v-bind="$attrs" />
+</template>
+
+<script>
+
+export default {
+  props: {
+    size: {
+      type: [Number, String],
+      default: 48,
+    },
+    rounded: {
+      type: [Number, String],
+      default: 0,
+    },
+    toyNumber: {
+      type: [Number, String],
+      default: 1,
+      validator(value) {
+        return value >= 1 && value <= 18;
       },
     },
-    setup(props) {
+    group: {
+      type: [Number, String],
+      default: 1,
+      validator(value) {
+        return value >= 1 && value <= 2;
+      },
+    },
+    data: () => {
       const GROUPS = [
         {
           rows: 3,
@@ -43,7 +41,7 @@
           img: "url('https://user-images.githubusercontent.com/58827166/184355612-a8b12e00-a815-4456-8892-30836b4d1c2c.jpg')",
         },
       ];
-  
+
       const currentGroup = computed(() => GROUPS[props.group - 1]);
       const posX = computed(
         () => (props.toyNumber - 1) % currentGroup.value.cols
@@ -51,7 +49,7 @@
       const posY = computed(() =>
         Math.floor((props.toyNumber - 1) / currentGroup.value.cols)
       );
-  
+
       const avatarStyle = computed(() => ({
         display: "inline-block",
         width: props.size + "px",
@@ -68,10 +66,11 @@
         backgroundPositionX: `-${posX.value * props.size}px`,
         backgroundPositionY: `-${posY.value * props.size}px`,
       }));
-  
+
       return {
         avatarStyle,
       };
-    },
-  });
-  </script>
+    }
+  },
+}
+</script>

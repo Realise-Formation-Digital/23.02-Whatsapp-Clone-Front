@@ -7,6 +7,5 @@ import dayjs from 'dayjs';
 import utcPlugin from 'dayjs-plugin-utc';
 dayjs.extend(utcPlugin);
 
-import VueInitialsImg from 'vue-initials-img';
 
-createApp(App).use(router).use(vuetify).use(VueInitialsImg).mount('#app')
+createApp(App).use(router).use(vuetify).mount('#app')
