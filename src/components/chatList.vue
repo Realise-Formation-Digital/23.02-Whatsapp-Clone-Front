@@ -1,7 +1,7 @@
 <template>
     <v-container fluid class="bg-pink-lighten-5">
         <v-row>
-            <v-col cols="3">
+            <v-col cols="12">
                 <chatCard :chatTitle="chatTitle" :chatDescription="chatDescription" :chatLastMessage="chatLastMessage">
                 </chatCard>
             </v-col>
@@ -32,8 +32,4 @@ methods: {
 </script>
 
 <style>
-.chatCardStyle {
-    border-radius: 20%;
-    box-shadow: 5px 5px 5px 1px #f7aa8e8b;
-}
 </style>

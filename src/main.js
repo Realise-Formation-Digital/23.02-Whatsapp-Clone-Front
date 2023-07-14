@@ -5,7 +5,8 @@ import router from "./libs/router.js";
 import vuetify from "./libs/vuetify.js";
 import dayjs from 'dayjs';
 import utcPlugin from 'dayjs-plugin-utc';
-import VueToyFace from 'vue-toy-face'
 dayjs.extend(utcPlugin);
 
-createApp(App).use(router).use(vuetify).use(VueToyFace).mount('#app')
+import VueInitialsImg from 'vue-initials-img';
+
+createApp(App).use(router).use(vuetify).use(VueInitialsImg).mount('#app')
