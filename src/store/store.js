@@ -33,6 +33,15 @@ const chatStore = defineStore('chat', {
       }catch(e){
         throw new Error(e)
       }
+    },
+
+    async postMessage(body) {
+      try{
+        const result = await AxiosLib.post(urls.message, body)
+        console.log(result)
+      }catch(e){
+      throw new Error(e)
+    }
     }
   }
 })

@@ -1,5 +1,5 @@
 const urls = {
-    message: 'messages',
+    message: 'messages/',
     userLogin: 'users/login'
 }
 
