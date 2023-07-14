@@ -2,7 +2,7 @@
     <v-container class="bg-cyan-lighten-4">
         <v-row cols=12 class="ma-3">
             <v-col justify="start" cols="4">
-                <AvatarComponent v-for="avatarStyle in avatarStyleList" toyNumber:='1' :size="70" rounded="28" group="1"
+                <AvatarComponent toyNumber:='1' :size="70" rounded="28" group="1"
                     id="avatarShadow" />
             </v-col>
             <v-col cols="8" justify="end">
