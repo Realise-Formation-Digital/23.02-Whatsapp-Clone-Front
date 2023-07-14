@@ -35,13 +35,24 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent} from 'vue';
+import { mapStores } from "pinia";
+import {chatStore} from '../store/store'
 
 export default defineComponent({
   name: "Login",
   data: () => {
     return {
       userName:''
+    }
+  },
+  computed: {
+    ...mapStores(chatStore)
+  },
+  methods: {
+    async login() {
+      await 
+      this.userName
     }
   }
 })
