@@ -3,18 +3,18 @@
         <v-row>
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
-</v-textarea>  
-<div>
-    <button :class="{'emoji-button': showEmojis}" @click="toggleEmojis">
-      {{ showEmojis ? '▼' : '☺' }}
-    </button>
-    <div v-show="showEmojis" class="ma-5">
-      <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
-    </div>
-  </div> 
+                </v-textarea>
+                <div>
+                    <div v-show="showEmojis">
+                        <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
+                    </div>
+                </div>
             </v-col>
             <v-col cols="1">
-                
+                <v-btn :class="showEmojis" @click="toggleEmojis" class="pa-3 rainbow" rounded="xl"
+                    icon="mdi-emoticon-happy-outline"></v-btn>
+                <br>
+                <br>
                 <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" color="teal-accent-3"></v-btn>
             </v-col>
         </v-row>
@@ -30,27 +30,26 @@ import '@mdi/font/css/materialdesignicons.css'
 export default {
     data() {
         return {
-            showEmojis:false,
+            showEmojis: false,
             msgText: '',
         };
-        
+
     },
     components: {
         EmojiPicker: EmojiPicker,
     },
     methods: {
         toggleEmojis() {
-      this.showEmojis = !this.showEmojis;
-    },
+            this.showEmojis = !this.showEmojis;
+        },
         onSelectEmoji(emoji) {
             this.msgText += emoji.i;
         },
-        
+
         //receuillir les informations stocké dans msgText qui correspond à la valeur de l'input
         sendMessage() {
             this.$emit('sendme', this.msgText, this.emoji)
             this.msgText = ""
-            // this.emoji =""
         }
     }
 }
