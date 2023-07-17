@@ -4,15 +4,19 @@
     <userProfil></userProfil>
     <ChatBanner></ChatBanner>
   </v-app-bar>
-  <v-navigation-drawer app permanent>
+  <v-navigation-drawer app expand-on-hover>
+    <v-divider></v-divider>
+    <v-list dense nav>
     <chatList></chatList>
+  </v-list>
   </v-navigation-drawer>
   <v-main>
-    <SingleMessage></SingleMessage>
+    <SingleMessage class="pa-5"></SingleMessage>
+    
+    <v-footer-app>
+      <InputMessage @sendme="handleMessage" />
+    </v-footer-app>
   </v-main>
-  <v-footer>
-    <InputMessage @sendme="handleMessage" />
-  </v-footer>
 </v-app>
 </template>
 

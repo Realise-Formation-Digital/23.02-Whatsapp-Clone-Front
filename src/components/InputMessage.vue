@@ -1,11 +1,11 @@
 <template>
-    <v-container class="pa-10 bg-blue">
+    <v-container class="bg-blue">
         <v-row>
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
                 </v-textarea>
                 <div>
-                    <div v-show="showEmojis">
+                    <div v-show="showEmojis" >
                         <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
                     </div>
                 </div>
