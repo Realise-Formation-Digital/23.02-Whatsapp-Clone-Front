@@ -22,6 +22,9 @@ let dayjsMixins = {
                                     //Wed, 12-July-2023:12:17:30
     todayFormattedDate_FullDateWellLongAndFullTime (timestamp) {
       return dayjs(timestamp).format('ddd, DD-MMMM-YYYY:HH:mm:ss');
+    },                                  //Wed, 12-July-2023:12:17:30.000
+    todayFormattedDate_FullDateWellLongAndFullTimeWithMilliSec (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMMM-YYYY:HH:mm:ss.SSS');
     },
                                         //Wed, 12-July-2023:12:17:30
     todayFormattedDate_FullDateWellLongAndTimeWithoutSecond (timestamp) {
@@ -31,9 +34,9 @@ let dayjsMixins = {
     todayFormattedDate_FullDateWellLongNoTime (timestamp) {
       return dayjs(timestamp).format('ddd, DD-MMMM-YYYY');
     },
-
-    todayFormattedDate_FullDateLongAndFullTime (timestamp) {
-      return dayjs(timestamp).format('ddd, DD-MMM-YYYY:HH:mm:ss');
+                                        //Wed, 12-July-2023:12:17:30.000
+    todayFormattedDate_FullDateLongAndFullTimeWithMilliSec (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMM-YYYY:HH:mm:ss.SSS');
     },
                                         //Wed, 12-July-2023:12:17:30
     todayFormattedDate_FullDateLongAndTimeWithoutSecond (timestamp) {

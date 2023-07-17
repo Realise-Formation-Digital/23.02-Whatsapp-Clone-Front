@@ -9,7 +9,7 @@
             </div>
             <div class="pa-3 d-flex justify-end">
                 <v-chip>
-                    {{ todayFormattedDate_FullDateWellLongAndFullTime (ts)  }}
+                    {{ todayFormattedDate_FullDateWellLongAndFullTime (ts) }}
                 </v-chip>
             </div>
         </div>
