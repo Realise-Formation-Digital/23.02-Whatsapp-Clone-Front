@@ -19,7 +19,12 @@
     "vite": "^4.4.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",
+    "vue-toy-face": "^2.0.1",
+    "vue3-emoji-picker": "^1.1.7",
+    "vuemoji-picker": "^0.2.0",
+
     "vue-toy-face": "^2.0.1",   
+
     "vuetify": "^3.3.7"
   },
   "devDependencies": {
