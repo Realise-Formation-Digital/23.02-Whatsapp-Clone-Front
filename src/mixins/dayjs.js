@@ -19,23 +19,44 @@ dayjs.extend((_, Dayjs) => {
 let dayjsMixins = {
   methods: {
     //taper dayjs() pour la date d'auj, taper dayjs.local('fr-CH') pour la date local
-                                    //Wed, 12-07 - 2023: 12: 17: 30
-    todayFormattedDate1(timestamp) {
-      return dayjs(timestamp).format('ddd, DD-MM-YYYY:HH:mm:ss');
+                                    //Wed, 12-July-2023:12:17:30
+    todayFormattedDate_FullDateWellLongAndFullTime (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMMM-YYYY:HH:mm:ss');
     },
- //12-07-2023:12:16:30, GMT+0200 (Central European Summer Time)
-    todayFormattedDate2(timestamp) { 
-      'DD-MM-YYYY:HH:mm:ss-Z:+02:00'
+                                        //Wed, 12-July-2023:12:17:30
+    todayFormattedDate_FullDateWellLongAndTimeWithoutSecond (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMMM-YYYY:HH:mm');
     },
-    todayFormattedDate3(timestamp) {  
-      'DD-MM-YYYY'
+                                        //Wed, 12-July-2023:12:17:30
+    todayFormattedDate_FullDateWellLongNoTime (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMMM-YYYY');
     },
-    todayFormattedDate4(timestamp) {  
-      'DD-MM-YYYY:HH:mm:ss'
+
+    todayFormattedDate_FullDateLongAndFullTime (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMM-YYYY:HH:mm:ss');
     },
-    todayFormattedDate5(timestamp) {  
-      'DD-MM-YYYY:HH:mm'
+                                        //Wed, 12-July-2023:12:17:30
+    todayFormattedDate_FullDateLongAndTimeWithoutSecond (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMM-YYYY:HH:mm');
     },
+                                        //Wed, 12-July-2023:12:17:30
+    todayFormattedDate_FullDateLongNoTime (timestamp) {
+      return dayjs(timestamp).format('ddd, DD-MMM-YYYY');
+    },
+                              //12-07-2023:12:16:30, GMT+0200 (Central European Summer Time)
+    todayFormattedDate_FullDateLongAndUTCAndTime (timestamp) { 
+      return dayjs(timestamp).format('DD-MMM-YYYY:HH:mm:ss-Z:+02:00')
+    },
+    todayFormattedDate_FullDateSmall (timestamp) { //17-07-2023
+      return dayjs(timestamp).format('DD-MM-YYYY')
+    },
+    todayFormattedDate_FullDateSmallAndFullTime (timestamp) {  //17-07-2023:16:39:30
+      return dayjs(timestamp).format('DD-MM-YYYY:HH:mm:ss')
+    },
+    todayFormattedDate_FullDateSmallAndTimeWithoutSecond (timestamp) {  //17-07-2023:16:41
+      return dayjs(timestamp).format('DD-MM-YYYY:HH:mm')
+    },
+
   }
 }
 //aller dans pages/homes pour voir comment utiliser dayjs

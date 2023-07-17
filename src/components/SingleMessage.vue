@@ -9,7 +9,7 @@
             </div>
             <div class="pa-3 d-flex justify-end">
                 <v-chip>
-                    {{ ts }}
+                    {{ todayFormattedDate3(ts)  }}
                 </v-chip>
             </div>
         </div>
@@ -18,8 +18,10 @@
 </template>
 
 <script>
+import dayjsMixins from '../mixins/dayjs';
     export default {
         name: "SingleMessage",
+        mixins: [dayjsMixins],
         data: () => {
             return{
                 
