@@ -49,7 +49,7 @@ enterConversation(){
 }
 </script>
 <style>
-/* #chatCardStyle{
+#chatCardStyle{
     border-radius: 50%;    
-} */
+}
 </style>
