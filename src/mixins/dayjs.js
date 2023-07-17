@@ -19,7 +19,7 @@ dayjs.extend((_, Dayjs) => {
 let dayjsMixins = {
   methods: {
     //taper dayjs() pour la date d'auj, taper dayjs.local('fr-CH') pour la date local
-    //taper la date, ex (12-07-2023)(sans la région, comme Zurich), prenant un exemple ci dessous
+    //taper la date, ex (12-07-2023)(sans la région, comme Zurich), prenant un exemple ci-dessous
     todayFormattedDate (timestamp) { //12-07-2023:12:16:30, Zurich                                                              Wed, 12-07-2023:12:17:30
       return dayjs(timestamp).format('DD-MM-YYYY:HH:mm:ss-Z:+02:00','DD-MM-YYYY','DD-MM-YYYY:HH:mm:ss','DD-MM-YYYY:HH:mm','ddd, DD-MM-YYYY:HH:mm:ss');
     }
