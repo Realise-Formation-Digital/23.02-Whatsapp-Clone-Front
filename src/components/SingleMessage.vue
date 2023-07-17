@@ -38,7 +38,7 @@
             },
             ts: {
                 type: Number,
-                default: new Date,
+                default: new Date().getTime(),
                 requaired: false
             }
         }
