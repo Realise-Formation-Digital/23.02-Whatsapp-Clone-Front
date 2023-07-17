@@ -28,7 +28,7 @@
         props: {
             body: {
                 type: String,
-                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs',
+                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs_messageCodé?',
                 requaired: false
             },
             sender: {
