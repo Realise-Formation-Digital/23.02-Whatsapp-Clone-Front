@@ -56,7 +56,12 @@ let dayjsMixins = {
     todayFormattedDate_FullDateSmallAndTimeWithoutSecond (timestamp) {  //17-07-2023:16:41
       return dayjs(timestamp).format('DD-MM-YYYY:HH:mm')
     },
-
+    todayFormattedDate_FullTime (timestamp) {  //16:58:36
+      return dayjs(timestamp).format('HH:mm:ss')
+    },
+    todayFormattedDate_FullTimeAndMilliSecond (timestamp) {  //16:59:20.000
+      return dayjs(timestamp).format('HH:mm:ss.SSS')
+    },
   }
 }
 //aller dans pages/homes pour voir comment utiliser dayjs
