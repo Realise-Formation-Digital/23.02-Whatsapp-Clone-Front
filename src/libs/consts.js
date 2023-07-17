@@ -1,6 +1,7 @@
 const urls = {
-    message: 'messages',
-    userLogin: 'users/login'
+    message: 'messages/',
+    userLogin: 'users/login',
+    roomsByUser: 'all/:username'
 }
 
 export {urls}
