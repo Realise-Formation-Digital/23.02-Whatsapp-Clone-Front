@@ -4,4 +4,6 @@ const urls = {
     roomsByUser: 'all/:username'
 }
 
-export {urls}
+const defaultUrl = 'http://localhost:3001/'
+
+export {urls, defaultUrl}

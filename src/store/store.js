@@ -5,11 +5,13 @@ import { urls } from '../libs/consts'
 const chatStore = defineStore('chat', {
   state: () => ({
     userName: '',
-    roomId: '64b0f1080d5b918c6944a699'
+    roomId: '64b0f1080d5b918c6944a699',
+    roomsAndMessages: []
   }),
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
+    getRoomsAndMessage: (state) => state.roomsAndMessages
   },
   actions:{
     setUserName(value){
@@ -46,12 +48,29 @@ const chatStore = defineStore('chat', {
      }
     },
 
+    /**
+     * Login Function
+     * @async
+     * @param {String} username - the username that we need for our login
+     * @returns {Promise<void>}
+     */
+    async login(username) {
+      console.log('[UserStore][login] Logging in with params', username)
+      try {
+        const result = await AxiosLib.post(urls.userLogin, {username: username})
+        console.log('Result', result)
+        this.userName = result.username
+      }catch (e) {
+        console.error(e)
+      }
+    },
+
     async getAllRoomsByUser(){
       try {
         const result = await AxiosLib.get(urls.message + urls.roomsByUser);
         console.log(result)
       } catch (error) {
-        
+        console.error(error)
       }
     }
   }

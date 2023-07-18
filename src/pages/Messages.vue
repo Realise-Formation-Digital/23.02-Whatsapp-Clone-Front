@@ -43,7 +43,6 @@ import {chatStore} from '../store/store'
 
 
 export default defineComponent({
-  name: 'App',
   name: "Messages",
   components: { InputMessage, chatList, userProfil, chatCard, ChatBanner, SingleMessage },
   computed: {
