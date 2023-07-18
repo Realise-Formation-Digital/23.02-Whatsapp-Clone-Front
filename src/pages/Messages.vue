@@ -1,18 +1,31 @@
 <template>
-  <v-app>
-  <v-app-bar>
+  <v-app class="rounded rounded-md">
+
+  <v-app-bar flat name="app-bar">
     <userProfil></userProfil>
     <ChatBanner></ChatBanner>
   </v-app-bar>
-  <v-navigation-drawer app permanent>
-    <chatList></chatList>
+
+  
+  <v-navigation-drawer  >
+        <v-list>
+         <v-list-item> <chatList></chatList>  </v-list-item> 
+        </v-list>
   </v-navigation-drawer>
-  <v-main>
+
+
+
+    <v-main >
     <SingleMessage></SingleMessage>
+    
+    
   </v-main>
-  <v-footer>
-    <InputMessage @sendme="handleMessage" />
+  <v-footer app>
+    <InputMessage @sendme="handleMessage" class="pr-8"/>
   </v-footer>
+
+  
+  
 </v-app>
 </template>
 
@@ -30,7 +43,6 @@ import {chatStore} from '../store/store'
 
 
 export default defineComponent({
-  name: 'App',
   name: "Messages",
   components: { InputMessage, chatList, userProfil, chatCard, ChatBanner, SingleMessage },
   computed: {

@@ -1,17 +1,19 @@
 <template>
-    <v-container class="pa-10 bg-blue">
+    <v-container class="bg-blue">
         <v-row>
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
                 </v-textarea>
-                <div>
-                    <div v-show="showEmojis">
-                        <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
-                    </div>
-                </div>
+                
+                    <v-tooltip v-model="show" >
+                        
+                            <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
+                       
+                    </v-tooltip>
+                
             </v-col>
             <v-col cols="1">
-                <v-btn :class="showEmojis" @click="toggleEmojis" class="pa-3 rainbow" rounded="xl"
+                <v-btn :class="showEmojis" @click="show=!show"  class="pa-3 rainbow" rounded="xl"
                     icon="mdi-emoticon-happy-outline"></v-btn>
                 <br>
                 <br>
@@ -32,6 +34,7 @@ export default {
         return {
             showEmojis: false,
             msgText: '',
+            show: false,
         };
 
     },
@@ -39,9 +42,9 @@ export default {
         EmojiPicker: EmojiPicker,
     },
     methods: {
-        toggleEmojis() {
-            this.showEmojis = !this.showEmojis;
-        },
+        // toggleEmojis() {
+        //     this.showEmojis = !this.showEmojis;
+        // },
         onSelectEmoji(emoji) {
             this.msgText += emoji.i;
         },
