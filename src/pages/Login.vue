@@ -59,17 +59,15 @@ export default defineComponent({
     ...mapStores(chatStore)
   },
   methods: {
-    newUserName(){
-      this.chatStore.setUserName(this.userName)
-    },
+
     
     async login() {
       if(this.userName !== ''){
         console.log("[LoginVue][Post] post user name", this.userName);
-        this.newUserName()
-        await this.chatStore.postUser(this.userName)
+        await this.chatStore.login(this.userName)
+        //await this.chatStore.postUser(this.userName)
         this.$router.push('/messages')
-        console.log(this.chatStore.getUserName)
+        //console.log(this.chatStore.getUserName)
       } else {
         console.log('error')
       }
