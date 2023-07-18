@@ -1,51 +1,50 @@
-import { defineStore } from 'pinia'
-import AxiosLib from '../libs/axios'
-import { urls } from '../libs/consts'
+import { defineStore } from "pinia";
+import AxiosLib from "../libs/axios";
+import { urls } from "../libs/consts";
 
-const chatStore = defineStore('chat', {
+const chatStore = defineStore("chat", {
   state: () => ({
-    userName: '',
-    roomId: '64b0f1080d5b918c6944a699',
-    roomsAndMessages: []
+    userName: "",
+    roomId: "64b0f1080d5b918c6944a699",
+    roomsAndMessages: [],
   }),
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
-    getRoomsAndMessage: (state) => state.roomsAndMessages
+    getRoomsAndMessage: (state) => state.roomsAndMessages,
   },
-  actions:{
-    setUserName(value){
-      this.userName = value
+  actions: {
+    setUserName(value) {
+      this.userName = value;
     },
 
     async postUser(userName) {
       let json = {
-        "username" : userName
+        username: userName,
+      };
+      console.log("[chatStore][Post] post user name", json);
+      try {
+        const result = await AxiosLib.postUser(urls.userLogin, json);
+        console.log(result);
+      } catch (e) {
+        throw new Error(e);
       }
-      console.log("[chatStore][Post] post user name",json);
-      try{
-        const result = await AxiosLib.postUser(urls.userLogin, json)
-        console.log(result)
-      }catch(e){
-      throw new Error(e)
-    }
-
     },
-    async test(){
-      try{
-          const result = await AxiosLib.get(urls.message)
-      }catch(e){
-        throw new Error(e)
+    async test() {
+      try {
+        const result = await AxiosLib.get(urls.message);
+      } catch (e) {
+        throw new Error(e);
       }
     },
 
     async postMessage(body) {
-      try{
-        const result = await AxiosLib.post(urls.message, body)
-        console.log(result)
-      }catch(e){
-      throw new Error(e)
-     }
+      try {
+        const result = await AxiosLib.post(urls.message, body);
+        console.log(result);
+      } catch (e) {
+        throw new Error(e);
+      }
     },
 
     /**
@@ -55,33 +54,47 @@ const chatStore = defineStore('chat', {
      * @returns {Promise<void>}
      */
     async login(username) {
-      console.log('[UserStore][login] Logging in with params', username)
+      console.log("[UserStore][login] Logging in with params", username);
       try {
-        const result = await AxiosLib.post(urls.userLogin, {username: username})
-        console.log('Result', result)
-        this.userName = result.username
-      }catch (e) {
-        console.error(e)
+        const result = await AxiosLib.post(urls.userLogin, {
+          username: username,
+        });
+        console.log("Result", result);
+        this.userName = result.username;
+      } catch (e) {
+        console.error(e);
       }
     },
 
     /**
-     * list of Rooms-last message on display - by User
+     * list of Rooms by User
      * @async
-     * @param {roomId} && {message}
-     * @return {Promise<void>}
-     * 
+     * @param {id} roomsByUser
+     * @returns {Promise<void>}
+     *
      */
-    async getAllRoomsByUser(roomId, message){
-      console.log('[UserStore][getAllRoomsByUser] list of Rooms-last message on display - by User', roomId, sender, message)
+    async getAllRoomsByUser(roomId, userId) {
+      console.log(
+        "[UserStore][getAllRoomsByUser] list of Rooms by User",
+        roomId,
+        userId
+      );
       try {
-        const result = await AxiosLib.get(urls.message, {roomId: roomId} + urls.roomsByUser, {roomsByUser: roomsByUser}, urls.message, {message: message});
-        console.log(result)
-      } catch (error) {
-        console.error(error)
+        const result = await AxiosLib.get(urls.roomsByUser, {
+          roomId: chat.id,
+          admins: [chat.userId, chat.username],
+          guestsId: chat.guestsId[""],
+          avatar: "",
+          messages: chat.messages[""],
+          chatName: chat.name,
+          ts: chat.ts,
+        });
+        console.log("result", result);
+        this.roomsByUser = result.roomsByUser;
+        console.error(error);
       }
-    }
-  }
-})
+    },
+  },
+});
 
-export {chatStore}
+export { chatStore };

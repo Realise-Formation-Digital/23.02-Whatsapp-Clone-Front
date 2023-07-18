@@ -2,7 +2,7 @@
     <v-container fluid class="bg-pink-lighten-5">
         <v-row>
             <v-col cols="12">
-                <chatCard :chatTitle="chatTitle" :chatDescription="chatDescription" :chatLastMessage="chatLastMessage">
+                <chatCard :chatTitle="chatName"  :chatLastMessage="chatLastMessage">
                 </chatCard>
             </v-col>
         </v-row>
@@ -10,26 +10,34 @@
 </template>
 <script>
 import chatCard from './chatCard.vue'
+import chatStore from '../store/store.js'
 export default {
+
+    computed: {
+        ...mapStores(chatStore)
+    },
+
+    async mounted(){
+    await this.chatStore.getAllRoomsByUser()
+    },
+    name: "chatList",
     components: {
         chatCard,
     },
     data: () => ({
         return: {
-            chatlist: [
+            roomsByUser: [
+
             ]
         },
-    })
+    }),
+    methods: {
+        async getAllRoomsByUser() {
+            await this.chatStore.getAllRoomsByUser(this.username, this.avatar, this.chatName, this.ts)
+
+        }
+    }
 }
-
-
-
-methods: {
-
-}
-
-
 </script>
-
-<style>
-</style>
+    
+<style></style>
