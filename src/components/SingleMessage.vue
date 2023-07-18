@@ -9,7 +9,7 @@
             </div>
             <div class="pa-3 d-flex justify-end">
                 <v-chip>
-                    {{ ts }}
+                    {{ todayFormattedDate_FullDateWellLongAndFullTime (ts) }}
                 </v-chip>
             </div>
         </div>
@@ -18,8 +18,10 @@
 </template>
 
 <script>
+import dayjsMixins from '../mixins/dayjs';
     export default {
         name: "SingleMessage",
+        mixins: [dayjsMixins],
         data: () => {
             return{
                 
@@ -28,18 +30,18 @@
         props: {
             body: {
                 type: String,
-                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs',
-                requaired: false
+                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs_messageCodé?',
+                required: false
             },
             sender: {
                 type: String,
                 default: '',
-                requaired: false
+                required: false
             },
             ts: {
                 type: Number,
-                default: new Date,
-                requaired: false
+                default: new Date().getTime(),
+                required: false
             }
         }
     }
