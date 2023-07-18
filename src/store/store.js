@@ -65,9 +65,17 @@ const chatStore = defineStore('chat', {
       }
     },
 
-    async getAllRoomsByUser(){
+    /**
+     * list of Rooms-last message on display - by User
+     * @async
+     * @param {roomId} && {message}
+     * @return {Promise<void>}
+     * 
+     */
+    async getAllRoomsByUser(roomId, message){
+      console.log('[UserStore][getAllRoomsByUser] list of Rooms-last message on display - by User', roomId, sender, message)
       try {
-        const result = await AxiosLib.get(urls.message + urls.roomsByUser);
+        const result = await AxiosLib.get(urls.message, {roomId: roomId} + urls.roomsByUser, {roomsByUser: roomsByUser}, urls.message, {message: message});
         console.log(result)
       } catch (error) {
         console.error(error)
