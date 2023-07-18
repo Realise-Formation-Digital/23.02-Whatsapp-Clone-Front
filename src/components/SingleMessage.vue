@@ -31,17 +31,17 @@ import dayjsMixins from '../mixins/dayjs';
             body: {
                 type: String,
                 default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs_messageCodé?',
-                requaired: false
+                required: false
             },
             sender: {
                 type: String,
                 default: '',
-                requaired: false
+                required: false
             },
             ts: {
                 type: Number,
                 default: new Date().getTime(),
-                requaired: false
+                required: false
             }
         }
     }
