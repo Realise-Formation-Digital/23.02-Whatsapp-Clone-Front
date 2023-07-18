@@ -49,18 +49,16 @@ export default defineComponent({
     ...mapStores(chatStore)
   },
   methods: {
-    handleMessage(data) {
-      let json = {
-       "message": data,
-       "roomId": this.chatStore.getRoomId,
-       "sender": this.chatStore.getUserName
+   async handleMessage(data) {
+    //todo faire check si ils sont vide
+      try{
+        await this.chatStore.message(this.chatStore.getUserName,data,this.chatStore.roomId)
+      } catch(e) {
+        console.error(e)
       }
-      if(json.message && json.roomId && json.sender !== '') {
-        console.log(data)
-        this.chatStore.postMessage(json) 
-      } else {
-        console.error('error :)')
-      }
+      
+        
+      
     }
     
   },

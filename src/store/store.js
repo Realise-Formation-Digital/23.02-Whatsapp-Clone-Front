@@ -4,6 +4,7 @@ import { urls } from '../libs/consts'
 
 const chatStore = defineStore('chat', {
   state: () => ({
+    messageSend:'',
     userName: '',
     roomId: '64b0f1080d5b918c6944a699',
     roomsAndMessages: []
@@ -64,6 +65,17 @@ const chatStore = defineStore('chat', {
         console.error(e)
       }
     },
+
+    async message(sender, message, roomId) {
+      console.log('[UserMessage][Messages] message send', message , sender , roomId)
+      try{
+        const result = await AxiosLib.post(urls.message,{message: message , roomId: roomId, sender: sender})
+        
+      }catch (e){
+        console.error(e)
+      }
+    },
+
 
     async getAllRoomsByUser(){
       try {
