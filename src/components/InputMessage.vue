@@ -4,17 +4,21 @@
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
                 </v-textarea>
-                
-                    <v-tooltip v-model="show" >
-                        
-                            <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
-                       
-                    </v-tooltip>
-                
             </v-col>
             <v-col cols="1">
-                <v-btn :class="showEmojis" @click="show=!show"  class="pa-3 rainbow" rounded="xl"
-                    icon="mdi-emoticon-happy-outline"></v-btn>
+                <v-dialog v-model="dialog" width="auto">
+                    <template v-slot:activator="{ props }">
+                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" class="pa-3 rainbow" rounded="xl"
+                            icon="mdi-emoticon-happy-outline"></v-btn>
+                    </template>
+
+                    <v-card>
+                        <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
+                        <v-card-actions>
+                            <v-btn color="red" block @click="dialog = false">Revenir au message</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
                 <br>
                 <br>
                 <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" color="teal-accent-3"></v-btn>
@@ -32,6 +36,7 @@ import '@mdi/font/css/materialdesignicons.css'
 export default {
     data() {
         return {
+            dialog: false,
             showEmojis: false,
             msgText: '',
             show: false,
