@@ -1,20 +1,37 @@
 <template>
-    <v-container class="bg-blue">
+    <v-container class="pa-10 bg-blue">
         <v-row>
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
                 </v-textarea>
-                
-                    <v-tooltip v-model="show" >
-                        
-                            <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
-                       
-                    </v-tooltip>
-                
             </v-col>
             <v-col cols="1">
-                <v-btn :class="showEmojis" @click="show=!show"  class="pa-3 rainbow" rounded="xl"
-                    icon="mdi-emoticon-happy-outline"></v-btn>
+
+                <v-dialog v-model="dialog" width="auto">
+                    <template v-slot:activator="{ props }">
+                        <v-btn :class="showEmojis" v-bind="props" @click="toggleEmojis" class="pa-3 rainbow" rounded="xl"
+                            icon="mdi-emoticon-happy-outline"></v-btn>
+                    </template>
+
+                    <v-card>
+                        <v-card-text>
+                            <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
+                        </v-card-text>
+                        <v-card-actions>
+                            <v-btn color="red" block @click="dialog = false">Fermer liste emoji</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
+
+
+
+
+
+
+
+
+
+
                 <br>
                 <br>
                 <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" color="teal-accent-3"></v-btn>
@@ -32,9 +49,9 @@ import '@mdi/font/css/materialdesignicons.css'
 export default {
     data() {
         return {
-            showEmojis: false,
+            dialog: false,
+            // showEmojis: false,
             msgText: '',
-            show: false,
         };
 
     },
@@ -42,9 +59,9 @@ export default {
         EmojiPicker: EmojiPicker,
     },
     methods: {
-        // toggleEmojis() {
-        //     this.showEmojis = !this.showEmojis;
-        // },
+        toggleEmojis() {
+            this.showEmojis = !this.showEmojis;
+        },
         onSelectEmoji(emoji) {
             this.msgText += emoji.i;
         },
