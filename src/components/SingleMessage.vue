@@ -33,7 +33,7 @@ export default {
     },
     mounted() {
     
-    
+    this.message = this.chatStore.getMessage
     
   },
     props: {
