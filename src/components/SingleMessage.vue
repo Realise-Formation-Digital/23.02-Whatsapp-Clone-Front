@@ -53,23 +53,6 @@ export default {
     console.log('ciao', this.chatStore.getMessage())
     this.message = this.chatStore.getMessage
   },
-  props: {
-    body: {
-      type: String,
-      default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs',
-      required: false
-    },
-    sender: {
-      type: String,
-      default: '',
-      required: false
-    },
-    ts: {
-      type: Number,
-      default: new Date,
-      required: false
-    }
-  }
 }
 </script>
 <style scoped> .messageFitContent {
