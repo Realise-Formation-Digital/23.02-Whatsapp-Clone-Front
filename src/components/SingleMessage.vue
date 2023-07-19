@@ -5,11 +5,11 @@
         Sender: {{ sender }}
       </h5>
       <div class="px-3">
-        {{ message }}
+        {{ body }}
       </div>
       <div class="pa-3 d-flex justify-end">
         <v-chip>
-          {{ ts }}
+          {{ todayFormattedDate_FullTime (ts) }}
         </v-chip>
       </div>
     </div>
@@ -19,10 +19,11 @@
 <script>
 import {mapStores} from "pinia";
 import {chatStore} from "../store/store.js";
-
+import dayjsMixins from "../mixins/dayjs.js";
 
 export default {
   name: "SingleMessage",
+  mixins:[dayjsMixins],
   computed: {
     ...mapStores(chatStore)
   },
@@ -32,7 +33,6 @@ export default {
     }
   },
   mounted() {
-    console.log('ciao', this.chatStore.getMessage())
     this.message = this.chatStore.getMessage
   },
   props: {
@@ -48,7 +48,7 @@ export default {
     },
     ts: {
       type: Number,
-      default: new Date,
+      default: new Date().getTime(),
       required: false
     }
   }
