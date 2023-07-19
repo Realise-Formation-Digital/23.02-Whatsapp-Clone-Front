@@ -1,7 +1,7 @@
 const urls = {
     message: 'messages/',
     userLogin: 'users/login',
-    roomsByUser: 'all/:username'
+    roomsByUser: 'rooms/all/' // ajouter le username de suite
 }
 
 const defaultUrl = 'http://localhost:3001/'
