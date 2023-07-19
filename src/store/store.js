@@ -69,29 +69,23 @@ const chatStore = defineStore("chat", {
     /**
      * list of Rooms by User
      * @async
-     * @param {id} roomsByUser
+     * @param {string} username
      * @returns {Promise<void>}
      *
      */
-    async getAllRoomsByUser(roomId, userId) {
+    async getAllRoomsByUser(username) {
       console.log(
         "[UserStore][getAllRoomsByUser] list of Rooms by User",
-        roomId,
-        userId
+        username
       );
       try {
-        const result = await AxiosLib.get(urls.roomsByUser, {
-          roomId: chat.id,
-          admins: [chat.userId, chat.username],
-          guestsId: chat.guestsId[""],
-          avatar: "",
-          messages: chat.messages[""],
-          chatName: chat.name,
-          ts: chat.ts,
-        });
+        const result = await AxiosLib.get(urls.roomsByUser + username);
         console.log("result", result);
-        this.roomsByUser = result.roomsByUser;
-        console.error(error);
+        this.roomsAndMessages = result
+        //this.roomsByUser = result.roomsByUser;
+        //console.error(error);
+      } catch (e) {
+        console.error(e);
       }
     },
   },
