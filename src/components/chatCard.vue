@@ -1,50 +1,52 @@
- <template>
- <v-card v-model="chatAlone" class="rounded-xl rounded-be-0 bg-pink-lighten-2 ma-0 pa-4" @click="enterConversation()" >
+<template>
+  <v-card v-model="chatAlone" class="rounded-xl rounded-be-0 bg-pink-lighten-2 ma-0 pa-4" @click="enterConversation()">
     <v-card-title class="text-center text-truncate">
-        {{ chatName }}
-        titre de la conversation
-        </v-card-title>
-        <v-card-subtitle class="text-center">
+      {{ chatTitle }}
+      titre de la conversation
+    </v-card-title>
+    <v-card-subtitle class="text-center">
+      <!--
             {{ chatDescription }}
-           sous-titre de conversation
-        </v-card-subtitle>
-        <v-card-subtitle class="text-center">
-            {{ chatLastMessage }}
-            Je parle, je reparle et je reparle encore. 
-        </v-card-subtitle>
-    </v-card>
+      -->
+      sous-titre de conversation
+    </v-card-subtitle>
+    <v-card-subtitle class="text-center">
+      <!--      {{ chatLastMessage }}-->
+      Je parle, je reparle et je reparle encore.
+    </v-card-subtitle>
+  </v-card>
 </template>
 <script>
 export default {
-    props:{
-        chatTitle: {
-            type: String,
-            default: "",
-            required: true, 
-        },
-        chatDescription:{
-            type: String,
-            default: "",
-            required: true
-        },
-        chatLastMessage: {
-            type: String,
-            default: "",
-            required: true
-        },
-        data:([])=>{
-            return{  
-
-            }
-        },
+  props: {
+    chatTitle: {
+      type: String,
+      default: "",
+      required: true,
     },
-    methods: {
-enterConversation(){
+    /*chatDescription: {
+      type: String,
+      default: "",
+      required: true
+    },
+    chatLastMessage: {
+      type: String,
+      default: "",
+      required: true
+    },*/
+  },
+  data() {
+    return {
+      chatAlone: null
+    }
+  },
+  methods: {
+    enterConversation() {
 // async loadMessages(){
 
 // },
-},
-    }
+    },
+  }
 
 }
 </script>

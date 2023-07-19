@@ -1,8 +1,8 @@
 <template>
     <v-container class="ma-0 pa-0">
     <v-row >
-      <v-col cols="12">
-        <chatCard>
+      <v-col cols="12" v-for="chatItem in chatList">
+        <chatCard :chat-title="chatItem.name">
         </chatCard>
       </v-col>
     </v-row>
@@ -18,8 +18,9 @@ export default {
     ...mapStores(chatStore)
   },
 
-  async mounted() {
-    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
+  mounted() {
+    console.log('CHAT', this.chatStore.getRoomsAndMessage)
+    this.chatList = this.chatStore.getRoomsAndMessage
   },
 
   name: "chatList",
@@ -27,11 +28,11 @@ export default {
     chatCard,
   },
 
-  data: () => ({
-    return: {
-      roomsAndMessages: [],
-    },
-  }),
+  data (){
+    return {
+      chatList: [],
+    }
+  },
   methods: {
   }
 }
