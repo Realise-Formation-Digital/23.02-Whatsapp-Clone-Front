@@ -1,7 +1,7 @@
  <template>
- <v-card v-model="chatAlone" id="chatCardStyle" class="rounded-xl rounded-be-0 bg-pink-lighten-2 pa-4" @click="enterConversation()" >
+ <v-card v-model="chatAlone" class="rounded-xl rounded-be-0 bg-pink-lighten-2 ma-0 pa-4" @click="enterConversation()" >
     <v-card-title class="text-center text-truncate">
-        {{ chatTitle }}
+        {{ chatName }}
         titre de la conversation
         </v-card-title>
         <v-card-subtitle class="text-center">
@@ -49,7 +49,5 @@ enterConversation(){
 }
 </script>
 <style>
-#chatCardStyle{
-    border-radius: 50%;    
-}
+
 </style>
