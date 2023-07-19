@@ -58,10 +58,6 @@ export default {
         sendMessage() {
             this.$emit('sendme', this.msgText, this.emoji)
             this.msgText = ""
-        },
-
-        async message(){
-            await this.chatStore.message(this.message)
         }
     }
 }

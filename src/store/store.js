@@ -71,12 +71,13 @@ const chatStore = defineStore('chat', {
       }
     },
 
-    async message(sender, message, roomId) {
+    async sendMessage(sender, message, roomId) {
       console.log('[UserMessage][Messages] message send', message , sender , roomId)
       try{
         const result = await AxiosLib.post(urls.message,{message: message , roomId: roomId, sender: sender})
+        console.log('Ciao', result)
         this.message = result.message
-        
+        console.log('Message inserted', this.message)
       }catch (e){
         console.error(e)
       }
