@@ -26,14 +26,21 @@ export default {
     },
     data: () => ({
         return: {
-            roomsByUser: [
+            roomsByUser: [],
+            roomId,
+            admins,
+            guestId,
+            avatar,
+            messages,
+            chatName, 
+            ts
 
-            ]
         },
     }),
     methods: {
         async getAllRoomsByUser() {
-            await this.chatStore.getAllRoomsByUser(this.username, this.avatar, this.chatName, this.ts)
+            await this.chatStore.getAllRoomsByUser(this.username, this.roomId, 
+            this.admins, this.guestsId, this.message, this.avatar, this.chatName, this.ts)
 
         }
     }
