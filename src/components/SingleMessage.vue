@@ -30,13 +30,8 @@ import dayjsMixins from '../mixins/dayjs';
         props: {
             body: {
                 type: String,
-<<<<<<< HEAD
-                default: 'piou piou !',
-                requaired: false
-=======
                 default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs_messageCodé?',
                 required: false
->>>>>>> origin/develop
             },
             sender: {
                 type: String,
