@@ -5,7 +5,7 @@ import { urls } from "../libs/consts";
 const chatStore = defineStore("chat", {
   state: () => ({
     userName: "",
-    roomId: "64b0f1080d5b918c6944a699",
+    roomId: "64b7dedbf8ec3e1f9f33cee9",
     roomsAndMessages: [],
   }),
   getters: {
@@ -16,6 +16,10 @@ const chatStore = defineStore("chat", {
   actions: {
     setUserName(value) {
       this.userName = value;
+    },
+
+    SetMessage(value){
+      this.message = value
     },
 
     async postUser(userName) {
@@ -66,21 +70,25 @@ const chatStore = defineStore("chat", {
       }
     },
 
-    /**
-     * list of Rooms by User
-     * @param {string} userName
-     * @returns {Promise<void>}
-     *
-     */
-    async getAllRoomsByUser(userName) {
-      console.log(
-        "[UserStore][getAllRoomsByUser] list of Rooms by User",
-        userName
-      );
+    async sendMessage(sender, message, roomId) {
+      console.log('[UserMessage][Messages] message send', message , sender , roomId)
+      try{
+        const messageInserted = await AxiosLib.post(urls.message,{message: message , roomId: roomId, sender: sender})
+        const foundRoom = this.roomsAndMessages.find((room) => room._id === roomId)
+        foundRoom.messages.push(messageInserted)
+      }catch (e){
+        console.error(e)
+      }
+    },
+
+
+    async getAllRoomsByUser(userName){
       try {
         const result = await AxiosLib.get(urls.roomsByUser + userName);
-        console.log("result", result);
+        console.log("result GET", result);
         this.roomsAndMessages = result
+        console.log("result GET", this.roomsAndMessages);
+
       } catch (e) {
         console.error(e);
       }
