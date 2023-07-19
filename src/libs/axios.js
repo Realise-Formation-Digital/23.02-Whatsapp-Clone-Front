@@ -27,18 +27,6 @@ class AxiosLib {
             throw new Error(error)
         }
     }
-
-    static async postUser(route, body) {
-        console.log('[AxiosLib][Post] sending resources with url and body', route, body)
-        try {
-            const response = await axios.post(defaultUrl + route, body);
-            if (response.status !== 200) throw new Error('Notre serveur ne vous à pas servit, seh')
-            return response && response.data
-        } catch (error) {
-            console.error(error)
-            throw new Error(error)
-        }
-    }
 }
 
 export default AxiosLib

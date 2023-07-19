@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid class="bg-pink-lighten-5">
-    <v-row>
+    <v-container class="ma-0 pa-0">
+    <v-row >
       <v-col cols="12">
-        <chatCard :chatTitle="chatName" :chatLastMessage="chatLastMessage">
+        <chatCard>
         </chatCard>
       </v-col>
     </v-row>
@@ -17,32 +17,22 @@ export default {
   computed: {
     ...mapStores(chatStore)
   },
+
   async mounted() {
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
   },
+
   name: "chatList",
   components: {
     chatCard,
   },
+
   data: () => ({
     return: {
-      roomsByUser: [],
-      /*            roomId,
-                  admins,
-                  guestId,
-                  avatar,
-                  messages,
-                  chatName,
-                  ts*/
-
+      roomsAndMessages: [],
     },
   }),
   methods: {
-    /*async getAllRoomsByUser() {
-        await this.chatStore.getAllRoomsByUser(this.username, this.roomId,
-        this.admins, this.guestsId, this.message, this.avatar, this.chatName, this.ts)
-
-    }*/
   }
 }
 </script>

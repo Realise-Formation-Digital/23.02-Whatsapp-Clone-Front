@@ -28,7 +28,7 @@
         props: {
             body: {
                 type: String,
-                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs',
+                default: 'piou piou !',
                 requaired: false
             },
             sender: {
