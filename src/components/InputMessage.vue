@@ -8,7 +8,7 @@
             <v-col cols="1">
                 <v-dialog v-model="dialog" width="auto">
                     <template v-slot:activator="{ props }">
-                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" class="pa-3 rainbow" rounded="xl"
+                        <v-btn  v-bind="props" class="pa-3 rainbow" rounded="xl"
                             icon="mdi-emoticon-happy-outline"></v-btn>
                     </template>
 
@@ -37,9 +37,7 @@ export default {
     data() {
         return {
             dialog: false,
-            showEmojis: false,
             msgText: '',
-            show: false,
         };
 
     },
