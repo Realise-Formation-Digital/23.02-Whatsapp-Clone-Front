@@ -19,36 +19,20 @@
 <script>
 import {mapStores} from "pinia";
 import {chatStore} from "../store/store.js";
-import dayjsMixins from '../mixins/dayjs';
+import dayjsMixins from "../mixins/dayjs.js";
 
 export default {
-    name: "SingleMessage",
-    mixins: [dayjsMixins],
-    computed: {
+  name: "SingleMessage",
+  mixins:[dayjsMixins],
+  computed: {
     ...mapStores(chatStore)
   },
-  props: {
-            body: {
-                type: String,
-                default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs_messageCodé?',
-                required: false
-            },
-            sender: {
-                type: String,
-                default: '',
-                required: false
-            },
-            ts: {
-                type: Number,
-                default: new Date().getTime(),
-                required: false
-            }
-        },
   data: () => {
     return {
       message: "",
     }
   },
+  //commenté sinon "!login = !accès au msg" ne marche pas 
   // mounted() {
   //   console.log('ciao', this.chatStore.getMessage())
   //   this.message = this.chatStore.getMessage

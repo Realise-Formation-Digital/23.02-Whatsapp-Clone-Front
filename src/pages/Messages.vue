@@ -17,8 +17,11 @@
 
 
     <v-main>
-      <SingleMessage
-      ></SingleMessage>
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
+        <SingleMessage :body="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+        ></SingleMessage>
+      </div>
+
     </v-main>
     <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8"/>
@@ -40,7 +43,8 @@ import {chatStore} from '../store/store'
 export default defineComponent({
   data() {
     return {
-      rooms: ""
+      roomsAndMessages: [],
+
     }
   },
   name: "Messages",
@@ -48,9 +52,9 @@ export default defineComponent({
   computed: {
     ...mapStores(chatStore)
   },
-  mounted() {
-    //this.rooms = this.chatStore.getAllRoomsByUser
-    //console.log(this.rooms)
+  async mounted() {
+    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
+    this.roomsAndMessages = this.chatStore.getRoomsAndMessage
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     }
