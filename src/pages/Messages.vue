@@ -51,6 +51,9 @@ export default defineComponent({
   mounted() {
     //this.rooms = this.chatStore.getAllRoomsByUser
     //console.log(this.rooms)
+    if (this.chatStore.getUserName == '') {
+      this.$router.push('/login')
+    }
   },
   methods: {
 

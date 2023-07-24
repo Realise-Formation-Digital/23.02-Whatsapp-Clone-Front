@@ -49,10 +49,10 @@ export default {
       message: "",
     }
   },
-  mounted() {
-    console.log('ciao', this.chatStore.getMessage())
-    this.message = this.chatStore.getMessage
-  },
+  // mounted() {
+  //   console.log('ciao', this.chatStore.getMessage())
+  //   this.message = this.chatStore.getMessage
+  // },
 }
 </script>
 <style scoped> .messageFitContent {
