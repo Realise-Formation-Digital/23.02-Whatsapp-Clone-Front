@@ -55,6 +55,9 @@ export default defineComponent({
   async mounted() {
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage
+    if (this.chatStore.getUserName == '') {
+      this.$router.push('/login')
+    }
   },
   methods: {
 
