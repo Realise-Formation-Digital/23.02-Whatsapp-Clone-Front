@@ -32,11 +32,6 @@ export default {
       message: "",
     }
   },
-  //commenté sinon "!login = !accès au msg" ne marche pas 
-  // mounted() {
-  //   console.log('ciao', this.chatStore.getMessage())
-  //   this.message = this.chatStore.getMessage
-  // },
 }
 </script>
 <style scoped> .messageFitContent {
