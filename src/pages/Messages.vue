@@ -17,7 +17,8 @@
 
     <v-main>
       <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
-        <SingleMessage :body="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"></SingleMessage>
+        <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+        ></SingleMessage>
       </div>
 
     </v-main>
@@ -34,8 +35,9 @@ import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
 import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
-import { mapStores } from 'pinia';
-import { chatStore } from '../store/store'
+import {mapStores} from 'pinia';
+import {chatStore} from '../store/store'
+import socket from '../libs/socket'
 
 export default defineComponent({
   data() {
@@ -54,7 +56,15 @@ export default defineComponent({
   },
   async mounted() {
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
-    this.roomsAndMessages = this.chatStore.getRoomsAndMessage
+    this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
+    socket.on("new-message", (...args) => {
+      console.log('Recieved message', args)
+      this.roomsAndMessages[0].messages.push(args[0])
+      console.log(args[0])
+    });
+    if (this.chatStore.getUserName == '') {
+      this.$router.push('/login')
+    }
   },
   methods: {
 
