@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-col>
         <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
-            :chat-last-message="this.chatLastMessage" :ts="chat.ts">
+            :chat-last-message="chat.messages[chat.messages.length-1].message" :ts="chat.messages[chat.messages.length-1].ts">
         </chatCard>
     </v-col>
   </v-container>
@@ -20,18 +20,20 @@ export default {
     data: () => {
 return{
     messageList: [],
-    // roomList: []
+    chatLastMessage: {
+
+    }
 }
     },
 
     computed: {
         ...mapStores(chatStore)
     },
-    async mounted() {
+     async mounted() {
 
-        this.messageList = await this.chatStore.getRoomsAndMessage.this.roomId
+        this.messageList = await this.chatStore.getRoomsAndMessage[0].message
         console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
-
+        this.getLastMessage()
         // this.roomList = await this.chatStore.getRoomsAndMessage.name
         // console.log('[roomList] [GET] [roomListByUser]', this.roomList)
     },
@@ -41,7 +43,7 @@ return{
         enterConversation() {
         },
         getLastMessage() {
-            if (this.messageList > 1) {
+            if (this.messageList >= 1) {
                 this.chatLastMessage = this.messageList.slice(-1)
                 console.log('getting lastMessage from list', this.chatLastMessage);
             }
