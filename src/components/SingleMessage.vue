@@ -29,14 +29,14 @@ export default {
   },
   data: () => {
     return {
-      message: "",
+     
     }
   },
   mounted() {
-    this.message = this.chatStore.getMessage
+    // this.message = this.chatStore.getMessage
   },
   props: {
-    body: {
+    message: {
       type: String,
       default: '',
       required: false

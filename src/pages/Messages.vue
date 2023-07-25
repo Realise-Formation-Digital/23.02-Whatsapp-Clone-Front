@@ -18,7 +18,7 @@
 
     <v-main>
       <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
-        <SingleMessage :body="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+        <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
         ></SingleMessage>
       </div>
 
@@ -61,9 +61,9 @@ export default defineComponent({
       this.roomsAndMessages[0].messages.push(args[0])
       console.log(args[0])
     });
-    if (this.chatStore.getUserName == '') {
-      this.$router.push('/login')
-    }
+    // if (this.chatStore.getUserName == '') {
+    //   this.$router.push('/login')
+    // }
   },
   methods: {
 
