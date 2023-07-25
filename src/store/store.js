@@ -5,13 +5,16 @@ import { urls } from "../libs/consts";
 const chatStore = defineStore("chat", {
   state: () => ({
     userName: "",
-    roomId: "64b7dedbf8ec3e1f9f33cee9",
+    roomId: "",
     roomsAndMessages: [],
+    messageListByRoom: [],
+    
   }),
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
+    getMessageListByRoom: (state) => state. messageListByRoom,
   },
   actions: {
     setUserName(value) {
@@ -81,14 +84,12 @@ const chatStore = defineStore("chat", {
       }
     },
 
-
     async getAllRoomsByUser(userName){
       try {
         const result = await AxiosLib.get(urls.roomsByUser + userName);
-        console.log("result GET", result);
         this.roomsAndMessages = result
-        console.log("result GET", this.roomsAndMessages);
-
+        console.log('[RoomStore] GET AllRoomsByUser', result);
+        this.roomId = result[0]._id
       } catch (e) {
         console.error(e);
       }
