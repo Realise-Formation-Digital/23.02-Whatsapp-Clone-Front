@@ -1,55 +1,51 @@
 <template>
-  <v-card v-model="chatAlone" class="rounded-xl rounded-be-0 bg-pink-lighten-2 ma-0 pa-4" @click="enterConversation()">
+  <v-card class="rounded-xl rounded-be-0 bg-pink-lighten-2 ma-0 pa-4" @click="enterConversation()">
     <v-card-title class="text-center text-truncate">
       {{ chatTitle }}
-      titre de la conversation
     </v-card-title>
-    <v-card-subtitle class="text-center">
-      <!--
-            {{ chatDescription }}
-      -->
-      sous-titre de conversation
+    <v-card-subtitle>
+      {{ chatLastMessage }}
     </v-card-subtitle>
-    <v-card-subtitle class="text-center">
-      <!--      {{ chatLastMessage }}-->
-      Je parle, je reparle et je reparle encore.
-    </v-card-subtitle>
+    <v-chip>
+      {{ todayFormattedDate_FullTime(ts) }}
+    </v-chip>
   </v-card>
 </template>
+
 <script>
+import dayjsMixins from '../mixins/dayjs';
+
 export default {
+  mixins: [dayjsMixins],
+
+  name: "chatCard",
   props: {
     chatTitle: {
       type: String,
       default: "",
       required: true,
     },
-    /*chatDescription: {
-      type: String,
-      default: "",
-      required: true
-    },
     chatLastMessage: {
       type: String,
       default: "",
       required: true
-    },*/
-  },
-  data() {
-    return {
-      chatAlone: null
+    },
+    // roomList: {
+    //   type: String,
+    //   default: "",
+    //   required: true
+    // },
+    ts: {
+      type: Number,
+      default: new Date().getTime(),
+      required: false
     }
   },
-  methods: {
-    enterConversation() {
-// async loadMessages(){
 
-// },
-    },
-  }
-
+  data() {
+    return {
+    }
+  },
 }
 </script>
-<style>
-
-</style>
+<style></style>

@@ -2,17 +2,16 @@
   <v-app class="rounded rounded-md">
 
     <v-app-bar flat name="app-bar">
-      <userProfil></userProfil>
-      <ChatBanner></ChatBanner>
+      <userProfil :user-name="userName">
+      </userProfil>
+      <ChatBanner :room-name="roomName"> 
+      </ChatBanner>
     </v-app-bar>
 
 
-    <v-navigation-drawer>
-      <v-list>
-        <v-list-item>
-          <chatList></chatList>
-        </v-list-item>
-      </v-list>
+    <v-navigation-drawer> 
+    <chatList>
+    </chatList> 
     </v-navigation-drawer>
 
 
@@ -24,14 +23,13 @@
 
     </v-main>
     <v-footer app>
-      <InputMessage @sendme="handleMessage" class="pr-8"/>
+      <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import {defineComponent} from 'vue'
-import chatCard from '../components/chatCard.vue'
+import { defineComponent } from 'vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
@@ -45,11 +43,14 @@ export default defineComponent({
   data() {
     return {
       roomsAndMessages: [],
-
+      userName: '',
+      roomName: '',
+      // chatLastMessage: '',
+      // roomList: []
     }
   },
   name: "Messages",
-  components: {InputMessage, chatList, userProfil, chatCard, ChatBanner, SingleMessage},
+  components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage },
   computed: {
     ...mapStores(chatStore)
   },

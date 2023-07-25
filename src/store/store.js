@@ -7,11 +7,14 @@ const chatStore = defineStore("chat", {
     userName: "",
     roomId: "",
     roomsAndMessages: [],
+    messageListByRoom: [],
+    
   }),
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
+    getMessageListByRoom: (state) => state. messageListByRoom,
   },
   actions: {
     setUserName(value) {
@@ -81,11 +84,9 @@ const chatStore = defineStore("chat", {
       }
     },
 
-
     async getAllRoomsByUser(userName){
       try {
         const result = await AxiosLib.get(urls.roomsByUser + userName);
-        console.log("result GET", result);
         this.roomsAndMessages = result
         this.roomId = result[0]._id
         console.log("result GET", this.roomsAndMessages);
