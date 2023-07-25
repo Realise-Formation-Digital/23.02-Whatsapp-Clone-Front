@@ -61,6 +61,9 @@ export default defineComponent({
       this.roomsAndMessages[0].messages.push(args[0])
       console.log(args[0])
     });
+    if (this.chatStore.getUserName == '') {
+      this.$router.push('/login')
+    }
   },
   methods: {
 

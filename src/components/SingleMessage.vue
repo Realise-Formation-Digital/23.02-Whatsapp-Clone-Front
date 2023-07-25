@@ -5,11 +5,11 @@
        {{ sender }}
       </h4>
       <div class="px-3">
-        {{ body }}
+        {{ message }}
       </div>
       <div class="px-3 py-2 d-flex justify-end">
         <v-chip>
-          {{ todayFormattedDate_FullTime (ts) }}
+          {{ todayFormattedDate_FullDateWellLongAndFullTime (ts) }}
         </v-chip>
       </div>
     </div>
