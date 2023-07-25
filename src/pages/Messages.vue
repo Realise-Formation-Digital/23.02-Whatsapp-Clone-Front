@@ -39,6 +39,7 @@ import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
+import socket from '../libs/socket'
 
 export default defineComponent({
   data() {
@@ -54,7 +55,12 @@ export default defineComponent({
   },
   async mounted() {
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
-    this.roomsAndMessages = this.chatStore.getRoomsAndMessage
+    this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
+    socket.on("new-message", (...args) => {
+      console.log('Recieved message', args)
+      this.roomsAndMessages[0].messages.push(args[0])
+      console.log(args[0])
+    });
   },
   methods: {
 

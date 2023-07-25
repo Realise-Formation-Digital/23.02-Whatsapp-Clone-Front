@@ -5,7 +5,7 @@ import { urls } from "../libs/consts";
 const chatStore = defineStore("chat", {
   state: () => ({
     userName: "",
-    roomId: "64b7dedbf8ec3e1f9f33cee9",
+    roomId: "",
     roomsAndMessages: [],
   }),
   getters: {
@@ -75,7 +75,7 @@ const chatStore = defineStore("chat", {
       try{
         const messageInserted = await AxiosLib.post(urls.message,{message: message , roomId: roomId, sender: sender})
         const foundRoom = this.roomsAndMessages.find((room) => room._id === roomId)
-        foundRoom.messages.push(messageInserted)
+        // foundRoom.messages.push(messageInserted)
       }catch (e){
         console.error(e)
       }
@@ -87,6 +87,7 @@ const chatStore = defineStore("chat", {
         const result = await AxiosLib.get(urls.roomsByUser + userName);
         console.log("result GET", result);
         this.roomsAndMessages = result
+        this.roomId = result[0]._id
         console.log("result GET", this.roomsAndMessages);
 
       } catch (e) {

@@ -1,13 +1,13 @@
 <template>
-  <div :class="sender === '' ? 'd-flex justify-end' : 'd-flex justify-start'">
-    <div class="border rounded-xl rounded-be-0 messageFitContent">
-      <h5 class="pa-3">
-        Sender: {{ sender }}
-      </h5>
+  <div :class="sender == chatStore.getUserName ? 'd-flex justify-end px-9 my-2' : 'd-flex justify-start px-9 my-2'">
+    <div :class="sender == chatStore.getUserName ? 'border rounded-xl rounded-be-0 messageFitContent bg-green-lighten-1' : 'border rounded-xl rounded-ts-0 messageFitContent bg-blue-lighten-3'">
+      <h4 class="pa-3 px-9">
+       {{ sender }}
+      </h4>
       <div class="px-3">
         {{ body }}
       </div>
-      <div class="pa-3 d-flex justify-end">
+      <div class="px-3 py-2 d-flex justify-end">
         <v-chip>
           {{ todayFormattedDate_FullTime (ts) }}
         </v-chip>
@@ -38,7 +38,7 @@ export default {
   props: {
     body: {
       type: String,
-      default: 'Hikfsdklfjsdkljfsdjfklsdjklfsfsdfsdfsdfs',
+      default: '',
       required: false
     },
     sender: {
@@ -56,5 +56,6 @@ export default {
 </script>
 <style scoped> .messageFitContent {
   width: fit-content;
+  min-width: 300px;
 }
 </style>
