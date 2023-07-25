@@ -52,7 +52,10 @@ export default defineComponent({
   computed: {
     ...mapStores(chatStore)
   },
-
+  async mounted() {
+    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
+    this.roomsAndMessages = this.chatStore.getRoomsAndMessage
+  },
   methods: {
 
     async handleMessage(data) {
