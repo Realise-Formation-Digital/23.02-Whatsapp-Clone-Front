@@ -16,11 +16,14 @@
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
-        <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
-        ></SingleMessage>
-      </div>
-
+      <!-- <button @click="scrollToBottom()">Scroll</button> -->
+        <div v-if="roomsAndMessages.length > 0" v-for="(messageItem, index) in roomsAndMessages[0].messages" :id="index"
+          >
+          <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+          ></SingleMessage>
+         
+        </div>
+        <div ref="target" id="staticDiv">Moj div</div>
     </v-main>
     <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
@@ -38,6 +41,7 @@ import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
 import socket from '../libs/socket'
+import { ref, nextTick } from 'vue'
 
 export default defineComponent({
   data() {
@@ -45,6 +49,8 @@ export default defineComponent({
       roomsAndMessages: [],
       userName: '',
       roomName: '',
+      my: ref(),
+      
       // chatLastMessage: '',
       // roomList: []
     }
@@ -58,14 +64,23 @@ export default defineComponent({
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
     socket.on("new-message", (...args) => {
-      console.log('Recieved message', args)
+      // console.log('Recieved message', args)
       this.roomsAndMessages[0].messages.push(args[0])
-      console.log(args[0])
+      // console.log(args[0])
+      this.scrollToBottom()
     });
+    
+
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
-    }
+    };
+    console.log(this.roomsAndMessages[0].messages.length -1)
   },
+
+  updated(){
+    console.log('daniel')
+  },
+  
   methods: {
 
     async handleMessage(data) {
@@ -77,10 +92,20 @@ export default defineComponent({
       } catch (e) {
         console.error(e)
       }
+    },
+
+    scrollToBottom() {
+    
+      // this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' })
     }
   },
 })
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.chat-window {
+  height: auto;
+  overflow-y: auto;
+}
+</style>
