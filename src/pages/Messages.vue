@@ -17,13 +17,12 @@
 
     <v-main>
       <!-- <button @click="scrollToBottom()">Scroll</button> -->
-        <div v-if="roomsAndMessages.length > 0" v-for="(messageItem, index) in roomsAndMessages[0].messages" :id="index"
-          >
+        <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages"  :ref="targetRef">
           <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
           ></SingleMessage>
          
         </div>
-        <div ref="target" id="staticDiv">Moj div</div>
+        <div ref="targetRef"></div>
     </v-main>
     <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
@@ -41,7 +40,7 @@ import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
 import socket from '../libs/socket'
-import { ref, nextTick } from 'vue'
+import { ref } from 'vue'
 
 export default defineComponent({
   data() {
@@ -49,8 +48,7 @@ export default defineComponent({
       roomsAndMessages: [],
       userName: '',
       roomName: '',
-      my: ref(),
-      
+      targetRef: ref()
       // chatLastMessage: '',
       // roomList: []
     }
@@ -64,23 +62,19 @@ export default defineComponent({
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
     socket.on("new-message", (...args) => {
-      // console.log('Recieved message', args)
+      console.log('Recieved message', args)
       this.roomsAndMessages[0].messages.push(args[0])
-      // console.log(args[0])
-      this.scrollToBottom()
-    });
-    
-
+      console.log(args[0])
+      setTimeout(this.scrollToBottom, 100)    });
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     };
-    console.log(this.roomsAndMessages[0].messages.length -1)
-  },
-
-  updated(){
-    console.log('daniel')
+    setTimeout(this.scrollToBottom, 500)
   },
   
+  updated() {
+    // this.scrollToBottom()
+  },
   methods: {
 
     async handleMessage(data) {
@@ -95,8 +89,7 @@ export default defineComponent({
     },
 
     scrollToBottom() {
-    
-      // this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' })
+      this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' })
     }
   },
 })
