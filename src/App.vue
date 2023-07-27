@@ -15,7 +15,6 @@
 }
 .custom-link {
     margin-top: 20px; 
-    margin-left: 10px;
 }
 .custom-link-el {
 
