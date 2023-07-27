@@ -9,6 +9,9 @@
 </template>
 
 <script>
+import {mapStores} from 'pinia';
+import {chatStore} from '../store/store'
+
     export default {
         data: () => {
             return {
@@ -22,9 +25,17 @@
                 required: true
             }
         },
+        computed: {
+            ...mapStores(chatStore)
+        },
+        
         methods: {
             handleLogout() {
-                
+                localStorage.removeItem("userName");
+                this.chatStore.setUserName('')
+                if (this.chatStore.getUserName == '') {
+                    this.$router.push('/login')
+                };
             }
         }
     }
