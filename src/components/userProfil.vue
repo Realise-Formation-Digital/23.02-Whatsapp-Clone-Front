@@ -2,7 +2,7 @@
   <v-container class="bg-cyan-lighten-4">
     <v-row class="pa-3 ma-3">
       <v-col justify="start">
-        <AvatarComponent :toyNumber='4' :size="60" rounded="50" group="2" id="avatarShadow" />
+        <AvatarComponent :toyNumber="6" size="60" rounded="50" group2='2' id="avatarShadow" />
       </v-col>
       <v-col justify="end">
         <h3 text-align="center" class="ma-7">
@@ -30,6 +30,8 @@ export default {
   },
   data: () => {
     return {
+      group1: [],
+      group2: []
     }
   },
 
