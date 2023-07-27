@@ -16,11 +16,12 @@
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
-        <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
-        ></SingleMessage>
-      </div>
-
+      <!-- <button @click="scrollToBottom()">Scroll</button> -->
+        <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages"  :ref="targetRef">
+          <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+          ></SingleMessage>
+        </div>
+        <div ref="targetRef"></div>
     </v-main>
     <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
@@ -38,6 +39,7 @@ import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
 import socket from '../libs/socket'
+import { ref } from 'vue'
 
 export default defineComponent({
   data() {
@@ -45,6 +47,7 @@ export default defineComponent({
       roomsAndMessages: [],
       userName: '',
       roomName: '',
+      targetRef: ref()
       // chatLastMessage: '',
       // roomList: []
     }
@@ -61,10 +64,15 @@ export default defineComponent({
       console.log('Recieved message', args)
       this.roomsAndMessages[0].messages.push(args[0])
       console.log(args[0])
-    });
+      setTimeout(this.scrollToBottom, 100)    });
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
-    }
+    };
+    setTimeout(this.scrollToBottom, 500)
+  },
+  
+  updated() {
+    // this.scrollToBottom()
   },
   methods: {
 
@@ -77,10 +85,19 @@ export default defineComponent({
       } catch (e) {
         console.error(e)
       }
+    },
+
+    scrollToBottom() {
+      this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' })
     }
   },
 })
 
 </script>
 
-<style scoped></style>
+<style scoped>
+.chat-window {
+  height: auto;
+  overflow-y: auto;
+}
+</style>
