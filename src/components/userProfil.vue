@@ -1,12 +1,12 @@
 <template>
-  <v-container class="bg-cyan-lighten-4">
+  <v-container class="bg-grey-lighten-1">
     <v-row class="pa-3 ma-3">
       <v-col justify="start">
-        <AvatarComponent :toyNumber="6" size="60" rounded="50" group2='2' id="avatarShadow" />
+        <AvatarComponent :toyNumber="1" :group="1" size="60" rounded="50" id="avatarShadow" />
       </v-col>
       <v-col justify="end">
         <h3 text-align="center" class="ma-7">
-     {{this.chatStore.getUserName}}
+          {{ this.chatStore.getUserName }}
         </h3>
       </v-col>
     </v-row>
@@ -29,9 +29,9 @@ export default {
     },
   },
   data: () => {
-    return {
-      group1: [],
-      group2: []
+    return{
+      toyNumber: [],
+      group: []
     }
   },
 
@@ -47,6 +47,6 @@ export default {
 </script>
 <style>
 #avatarShadow {
-  box-shadow: 10px 10px 12px 1px #6c35ba8b;
+  box-shadow: 3px 2px 5px 1px #6c35ba8b;
 }
 </style>

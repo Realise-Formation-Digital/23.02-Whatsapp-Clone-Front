@@ -1,5 +1,5 @@
 <template>
-   <v-container class="bg-cyan-lighten-4">
+   <v-container class="bg-grey-lighten-1">
     <v-row >
     <v-col ><h3 class="text-center pt-2">Room Name{{ roomName }}</h3></v-col>
     <v-col cols="1" class="me-6"><v-avatar icon="$vuetify"></v-avatar></v-col>   
