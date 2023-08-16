@@ -58,21 +58,43 @@ export default defineComponent({
   computed: {
     ...mapStores(chatStore)
   },
+
+  async mounted() {
+    if(localStorage.getItem('userName')){
+      
+      this.userName = localStorage.getItem('userName');
+      await this.chatStore.login(this.userName)
+      
+      this.$router.push('/messages')
+    }
+  },
+
   methods: {
-    newUserName(){
-      this.chatStore.setUserName(this.userName)
-    },
+
     
     async login() {
       if(this.userName !== ''){
         console.log("[LoginVue][Post] post user name", this.userName);
-        this.newUserName()
-        await this.chatStore.postUser(this.userName)
+        await this.chatStore.login(this.userName)
+        this.handleLogin();
+
+        //await this.chatStore.postUser(this.userName)
         this.$router.push('/messages')
-        console.log(this.chatStore.getUserName)
+        //console.log(this.chatStore.getUserName)
       } else {
         console.log('error')
       }
+    },
+
+    handleLogin() {
+      // Effectuez la validation des informations d'identification ici
+
+      // Si la validation réussit et l'utilisateur est authentifié :
+      // Enregistrez l'état d'authentification dans le Local Storage
+      localStorage.setItem('userName', this.userName);
+
+      // Redirigez l'utilisateur vers la page des messages après la connexion réussie
+      this.$router.push('/messages');
     }
   }
 })

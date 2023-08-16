@@ -1,5 +1,5 @@
 <template>
-  <span :style="avatarStyle" v-bind="$attrs" />
+  <span :style="avatarStyle" v-bind="$attrs"/>
 </template>
 
 <script>

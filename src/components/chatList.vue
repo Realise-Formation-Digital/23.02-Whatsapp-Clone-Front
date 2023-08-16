@@ -1,35 +1,56 @@
 <template>
-    <v-container fluid class="bg-pink-lighten-5">
-        <v-row>
-            <v-col cols="12">
-                <chatCard :chatTitle="chatTitle" :chatDescription="chatDescription" :chatLastMessage="chatLastMessage">
-                </chatCard>
-            </v-col>
-        </v-row>
-    </v-container>
+  <v-container fluid>
+    <v-col>
+        <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
+            :chat-last-message="chat.messages[chat.messages.length-1].message" :ts="chat.messages[chat.messages.length-1].ts">
+        </chatCard>
+    </v-col>
+  </v-container>
 </template>
 <script>
 import chatCard from './chatCard.vue'
+import { chatStore } from '../store/store.js'
+import { mapStores } from 'pinia';
+
 export default {
+    name: "chatList",
     components: {
         chatCard,
     },
-    data: () => ({
-        return: {
-            chatlist: [
-            ]
-        },
-    })
+    data: () => {
+return{
+    messageList: [],
+    chatLastMessage: {
+
+    }
 }
+    },
+
+    computed: {
+        ...mapStores(chatStore)
+    },
+     async mounted() {
+
+        this.messageList = await this.chatStore.getRoomsAndMessage[0].message
+        console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
+        this.getLastMessage()
+        // this.roomList = await this.chatStore.getRoomsAndMessage.name
+        // console.log('[roomList] [GET] [roomListByUser]', this.roomList)
+    },
 
 
-
-methods: {
-
+    methods: {
+        enterConversation() {
+        },
+        getLastMessage() {
+            if (this.messageList >= 1) {
+                this.chatLastMessage = this.messageList.slice(-1)
+                console.log('getting lastMessage from list', this.chatLastMessage);
+            }
+        }
+    }
 }
 
 
 </script>
-
-<style>
-</style>
+<style></style>
