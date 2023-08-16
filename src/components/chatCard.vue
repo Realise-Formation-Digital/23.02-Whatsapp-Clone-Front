@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-xl rounded-be-0 ma-0 pa-4" @click="enterConversation()" >
+  <v-card class="rounded-xl rounded-be-0 ma-0 pa-4" @click="enterConversation()" :style="gradientStyle">
     <v-card-title class="text-center text-truncate">
       {{ chatTitle }}
     </v-card-title>
