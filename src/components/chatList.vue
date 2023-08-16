@@ -22,8 +22,7 @@ export default {
     data: () => {
         return {
             messageList: [],
-            chatLastMessage: {
-            },
+            chatLastMessage: {},
             gradientStyle
         }
     },

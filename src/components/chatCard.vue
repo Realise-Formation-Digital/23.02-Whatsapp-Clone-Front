@@ -17,7 +17,7 @@ import dayjsMixins from '../mixins/dayjs';
 import { gradientStyle } from '../libs/consts';
 
 export default {
-  mixins: [dayjsMixins, gradientStyle],
+  mixins: [dayjsMixins,],
 
   name: "chatCard",
   props: {
@@ -41,6 +41,7 @@ export default {
 
   data() {
     return {
+      gradientStyle
     }
   },
 }
