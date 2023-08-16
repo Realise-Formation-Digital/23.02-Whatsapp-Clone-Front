@@ -23,7 +23,7 @@
         </div>
         <div ref="targetRef"></div>
     </v-main>
-    <v-footer app>
+    <v-footer>
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
@@ -48,8 +48,6 @@ export default defineComponent({
       userName: '',
       roomName: '',
       targetRef: ref()
-      // chatLastMessage: '',
-      // roomList: []
     }
   },
   name: "Messages",

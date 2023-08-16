@@ -1,5 +1,5 @@
 <template>
-    <v-container class="bg-blue">
+    <v-container class="bg-cyan-lighten-4">
         <v-row>
             <v-col cols="11">
                 <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">

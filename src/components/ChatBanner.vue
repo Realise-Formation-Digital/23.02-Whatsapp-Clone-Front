@@ -1,7 +1,7 @@
 <template>
    <v-container class="bg-cyan-lighten-4">
     <v-row >
-    <v-col ><h3 class="text-center pt-2">{{ this.chatStore.getRoomsAndMessage[0].name }}</h3></v-col>
+    <v-col ><h3 class="text-center pt-2">RoomName{{ roomName }}</h3></v-col>
     <v-col cols="1" class="me-6"><v-avatar icon="$vuetify"></v-avatar></v-col>   
     <v-col><v-btn class="bg-cyan-lighten-5" @click="handleLogout()">Logout</v-btn></v-col> 
     </v-row>

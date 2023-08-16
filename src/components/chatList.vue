@@ -1,16 +1,18 @@
 <template>
-  <v-container fluid>
-    <v-col>
-        <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
-            :chat-last-message="chat.messages[chat.messages.length-1].message" :ts="chat.messages[chat.messages.length-1].ts">
-        </chatCard>
-    </v-col>
-  </v-container>
+    <v-container fluid>
+        <v-col>
+            <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
+                :chat-last-message="chat.messages[chat.messages.length - 1].message"
+                :ts="chat.messages[chat.messages.length - 1].ts" :style="gradientStyle">
+            </chatCard>
+        </v-col>
+    </v-container>
 </template>
 <script>
 import chatCard from './chatCard.vue'
 import { chatStore } from '../store/store.js'
 import { mapStores } from 'pinia';
+import { gradientStyle } from '../libs/consts';
 
 export default {
     name: "chatList",
@@ -18,19 +20,17 @@ export default {
         chatCard,
     },
     data: () => {
-return{
-    messageList: [],
-    chatLastMessage: {
-
-    }
-}
+        return {
+            messageList: [],
+            chatLastMessage: {},
+            gradientStyle
+        }
     },
 
     computed: {
         ...mapStores(chatStore)
     },
-     async mounted() {
-
+    async mounted() {
         this.messageList = await this.chatStore.getRoomsAndMessage[0].message
         console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
         this.getLastMessage()
