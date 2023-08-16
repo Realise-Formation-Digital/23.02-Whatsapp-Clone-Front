@@ -23,7 +23,7 @@
         </div>
         <div ref="targetRef"></div>
     </v-main>
-    <v-footer>
+    <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
