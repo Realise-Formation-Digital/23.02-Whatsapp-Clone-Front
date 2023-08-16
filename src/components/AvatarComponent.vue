@@ -4,16 +4,17 @@
 
 <script>
 export default {
-
   props: {
     size: {
       type: [Number, String],
       default: 48
     },
+
     rounded: {
       type: [Number, String],
       default: 0,
     },
+
     toyNumber: {
       type: [Number, String],
       default: 1,
@@ -21,6 +22,7 @@ export default {
         return value >= 1 && value <= 18;
       },
     },
+
     group: {
       type: [Number, String],
       default: 1,
@@ -28,7 +30,9 @@ export default {
         return value >= 1 && value <= 2;
       },
     },
+
   },
+  
   computed: {
     currentGroup() {
       return this.groups[this.group - 1]
