@@ -1,14 +1,14 @@
 <template>
-    <v-container class="bg-blue">
+    <v-container class="bg-grey-lighten-1">
         <v-row>
             <v-col cols="11">
-                <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="cyan-lighten-4">
+                <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="grey-lighten-2">
                 </v-textarea>
             </v-col>
             <v-col cols="1">
                 <v-dialog v-model="dialog" width="auto">
                     <template v-slot:activator="{ props }">
-                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" class="pa-3 rainbow" rounded="xl"
+                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" id="rainbowStyle" rounded="xl"
                             icon="mdi-emoticon-happy-outline"></v-btn>
                     </template>
 
@@ -21,7 +21,7 @@
                 </v-dialog>
                 <br>
                 <br>
-                <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" color="teal-accent-3"></v-btn>
+                <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" id="rainbowStyle"></v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -66,7 +66,8 @@ export default {
 
 
 <style scoped>
-.rainbow {
-    background: linear-gradient(25deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+#rainbowStyle {
+    background-image: conic-gradient(#ffb55afb, #86f3fffb,#7ccbfffb);
+    /* background: linear-gradient(25deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3); */
 }
 </style>
