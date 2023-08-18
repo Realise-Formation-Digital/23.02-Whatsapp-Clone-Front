@@ -23,7 +23,7 @@
         </div>
         <div ref="targetRef"></div>
     </v-main>
-    <v-footer>
+    <v-footer app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
@@ -38,7 +38,6 @@ import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
-import socket from '../libs/socket'
 import { ref } from 'vue'
 
 export default defineComponent({
@@ -61,11 +60,7 @@ export default defineComponent({
     }
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
-    socket.on("new-message", (...args) => {
-      console.log('Recieved message', args)
-      this.roomsAndMessages[0].messages.push(args[0])
-      console.log(args[0])
-      setTimeout(this.scrollToBottom, 100)    });
+  
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     };
