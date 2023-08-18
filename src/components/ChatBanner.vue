@@ -11,8 +11,6 @@
 <script>
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
-import router from '../libs/router.js'
-
     export default {
         data: () => {
             return {
