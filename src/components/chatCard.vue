@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-xl rounded-be-0 bg-pink-accent-1 ma-0 pa-4" @click="enterConversation()" id="conversationStyle">
+  <v-card class="rounded-xl rounded-be-0 ma-0 pa-4" @click="enterConversation()" :style="gradientStyle">
     <v-card-title class="text-center text-truncate">
       {{ chatTitle }}
     </v-card-title>
@@ -14,9 +14,10 @@
 
 <script>
 import dayjsMixins from '../mixins/dayjs';
+import { gradientStyle } from '../libs/consts';
 
 export default {
-  mixins: [dayjsMixins],
+  mixins: [dayjsMixins,],
 
   name: "chatCard",
   props: {
@@ -30,11 +31,7 @@ export default {
       default: "",
       required: true
     },
-    // roomList: {
-    //   type: String,
-    //   default: "",
-    //   required: true
-    // },
+   
     ts: {
       type: Number,
       default: new Date().getTime(),
@@ -44,13 +41,12 @@ export default {
 
   data() {
     return {
+      gradientStyle
     }
   },
 }
 </script>
 <style>
-#conversationStyle {
-  box-shadow: -3px 2px 5px 1px #6c35ba8b;
-  border: 3px solid bisque;
-}
+
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-app class="rounded rounded-md bg-grey-lighten-2">
+  <v-app class="rounded rounded-md">
 
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
@@ -9,7 +9,7 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer class="bg-grey-lighten-2"> 
+    <v-navigation-drawer> 
     <chatList>
     </chatList> 
     </v-navigation-drawer>
@@ -23,7 +23,7 @@
         </div>
         <div ref="targetRef"></div>
     </v-main>
-    <v-footer app class="bg-grey-lighten-2" id="footerShadow">
+    <v-footer>
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
@@ -102,8 +102,5 @@ export default defineComponent({
 .chat-window {
   height: auto;
   overflow-y: auto;
-}
-#footerShadow {
-  box-shadow: 100px 100px 202px 50px #f340cc8b;
 }
 </style>

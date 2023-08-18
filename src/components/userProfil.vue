@@ -1,5 +1,5 @@
 <template>
-  <v-container class="bg-grey-lighten-1">
+  <v-container class="bg-cyan-lighten-4">
     <v-row class="pa-3 ma-3">
       <v-col justify="start">
         <AvatarComponent :toyNumber="4" :group="1" :rounded="50" id="avatarShadow" />

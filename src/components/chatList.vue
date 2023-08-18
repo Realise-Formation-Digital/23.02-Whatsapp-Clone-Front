@@ -3,7 +3,7 @@
         <v-col>
             <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
                 :chat-last-message="chat.messages[chat.messages.length - 1].message"
-                :ts="chat.messages[chat.messages.length - 1].ts">
+                :ts="chat.messages[chat.messages.length - 1].ts" :style="gradientStyle">
             </chatCard>
         </v-col>
     </v-container>
@@ -12,6 +12,7 @@
 import chatCard from './chatCard.vue'
 import { chatStore } from '../store/store.js'
 import { mapStores } from 'pinia';
+import { gradientStyle } from '../libs/consts';
 
 export default {
     name: "chatList",
@@ -21,8 +22,8 @@ export default {
     data: () => {
         return {
             messageList: [],
-            chatLastMessage: {
-            }
+            chatLastMessage: {},
+            gradientStyle
         }
     },
 
