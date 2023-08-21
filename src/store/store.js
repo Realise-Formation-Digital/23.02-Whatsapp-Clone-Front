@@ -1,19 +1,21 @@
 import { defineStore } from "pinia";
 import AxiosLib from "../libs/axios";
-import { socketServerUrl, urls } from "../libs/consts";
-import socket from "../libs/socket.js";
+import { urls } from "../libs/consts";
 
 const chatStore = defineStore("chat", {
   state: () => ({
     userName: "",
     roomId: "",
     roomsAndMessages: [],
+
   }),
+
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
   },
+
   actions: {
     setUserName(value) {
       this.userName = value;
@@ -35,6 +37,7 @@ const chatStore = defineStore("chat", {
         throw new Error(e);
       }
     },
+
     async test() {
       try {
         const result = await AxiosLib.get(urls.message);
@@ -105,5 +108,4 @@ const chatStore = defineStore("chat", {
     },
   },
 });
-
 export { chatStore };
