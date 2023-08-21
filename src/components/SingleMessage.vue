@@ -13,6 +13,7 @@
         <v-chip>
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
+        <v-col><v-btn class="bg-red" @click="deleteMessageFunc()">Del</v-btn></v-col> 
       </div>
     </div>
   </div>
@@ -56,7 +57,10 @@ export default {
       default: new Date().getTime(),
       required: false
     }
-  }
+  },
+  methods: {
+    
+  },
 }
 </script>
 <style scoped> .messageFitContent {
