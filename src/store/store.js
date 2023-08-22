@@ -7,7 +7,6 @@ const chatStore = defineStore("chat", {
     userName: "",
     roomId: "",
     roomsAndMessages: [],
-
   }),
 
   getters: {
@@ -105,6 +104,15 @@ const chatStore = defineStore("chat", {
       } catch (e) {
         console.error(e);
       }
+    },
+    insertMessageBySocket(message) {
+      console.log("store", message);
+      const foundMessage = this.roomsAndMessages[0].messages.find(
+        (msg) => msg._id === message._id
+      );
+      console.log("store2", foundMessage);
+
+      if (!foundMessage) this.roomsAndMessages[0].messages.push(message);
     },
   },
 });
