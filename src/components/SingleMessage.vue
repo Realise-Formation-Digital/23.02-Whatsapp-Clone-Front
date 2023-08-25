@@ -3,18 +3,21 @@
     <div
       :class="sender == chatStore.getUserName ? 'border rounded-xl rounded-be-0 messageFitContent' : 'border rounded-xl rounded-ts-0 messageFitContent'"
       :style="gradientStyle">
-      //composition des messages 
+      <!-- sender of the messages -->
       <h4 class="pa-3 px-9">
         {{ sender }}
       </h4>
+      <!-- message content -->
       <div class="px-3">
         {{ message }}
       </div>
+      <!-- date -->
       <div class="px-3 py-2 d-flex justify-end">
         <v-chip>
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
-        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)">  <svg-icon type="mdi" :path="path"></svg-icon></v-btn></v-col> 
+        <!-- button for messages deletions -->
+        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)"> <svg-icon type="mdi" :path="path"></svg-icon></v-btn></v-col> 
       </div>
     </div>
   </div>
@@ -34,11 +37,13 @@ export default {
   },
   name: "SingleMessage",
   mixins: [dayjsMixins],
+  //take the store/store.js, its like if it was in SingleMsg
   computed: {
     ...mapStores(chatStore)
   },
   data: () => {
     return {
+      //mdi= is the icon and gradient is the saved style in consts
       path: mdiTrashCanOutline,
       gradientStyle,
     }
@@ -47,6 +52,7 @@ export default {
     // this.message = this.chatStore.getMessage
   },
   props: {
+    //anything send to the parent
     id : {
       type: String,
       default: '',
@@ -69,6 +75,7 @@ export default {
     }
   },
   methods: {
+    //calls the store.js
     deleteMessageFunc(messageId) {
       this.chatStore.deleteMessageFunc(messageId)
     }
@@ -76,7 +83,8 @@ export default {
 }
 
 </script>
-<style scoped> .messageFitContent {
+<style scoped> 
+.messageFitContent {
    width: fit-content;
    min-width: 300px;
   }

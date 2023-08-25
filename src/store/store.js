@@ -20,9 +20,12 @@ const chatStore = defineStore("chat", {
     setUserName(value) {
       this.userName = value;
     },
+    //function to delete the messages
       async deleteMessageFunc(messageId) {
         console.log ('store||delMessFunc',messageId)
+        //for the back
         // await axios.delete('https://quandMarcoAuraitFaitLeBac');
+        //for the front
         const indexMessages = this.roomsAndMessages[0].messages.indexOf(messageId)
         this.roomsAndMessages[0].messages.splice(indexMessages, 1)
     },
