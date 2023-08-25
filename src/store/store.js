@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import AxiosLib from "../libs/axios";
 import { urls } from "../libs/consts";
+import { mdiConsoleNetworkOutline } from "@mdi/js";
 
 const chatStore = defineStore("chat", {
   state: () => ({
@@ -89,7 +90,8 @@ const chatStore = defineStore("chat", {
         const foundRoom = this.roomsAndMessages.find(
           (room) => room._id === roomId
         );
-        foundRoom.messages.push(messageInserted);
+        const foundMessage = foundRoom.messages.find((msg) => msg._id === messageInserted._id)
+        if (!foundMessage) foundRoom.messages.push(messageInserted);
       } catch (e) {
         console.error(e);
       }
@@ -105,13 +107,17 @@ const chatStore = defineStore("chat", {
         console.error(e);
       }
     },
+
     insertMessageBySocket(message) {
       console.log("store", message);
       const foundMessage = this.roomsAndMessages[0].messages.find(
-        (msg) => msg._id === message._id
+        // (message) => message._id === message._id,
+        (msg) => {
+          console.log(msg)
+          return msg._id === message._id
+        },
       );
       console.log("store2", foundMessage);
-
       if (!foundMessage) this.roomsAndMessages[0].messages.push(message);
     },
   },
