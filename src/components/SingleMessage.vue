@@ -3,6 +3,7 @@
     <div
       :class="sender == chatStore.getUserName ? 'border rounded-xl rounded-be-0 messageFitContent' : 'border rounded-xl rounded-ts-0 messageFitContent'"
       :style="gradientStyle">
+      //composition des messages 
       <h4 class="pa-3 px-9">
         {{ sender }}
       </h4>
