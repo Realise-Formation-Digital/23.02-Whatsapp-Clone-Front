@@ -11,7 +11,6 @@
 <script>
 import {mapStores} from 'pinia';
 import {chatStore} from '../store/store'
-
     export default {
         data: () => {
             return {
