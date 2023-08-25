@@ -56,9 +56,11 @@ export default defineComponent({
     ...mapStores(chatStore)
   },
   async mounted() {
+    console.log('ciao2')
     if(localStorage.getItem('userName')){
       this.chatStore.setUserName(localStorage.getItem('userName'))
     }
+    console.log('ciao')
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
     socket.on("new-message", (...args) => {
