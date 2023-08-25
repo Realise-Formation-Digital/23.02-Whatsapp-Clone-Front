@@ -2,7 +2,7 @@
   <v-container class="bg-cyan-lighten-4">
     <v-row class="pa-3 ma-3">
       <v-col justify="start">
-        <AvatarComponent :toyNumber="1" :group="2" :rounded="50" id="avatarShadow" />
+        <AvatarComponent :toyNumber="10" :group="2" :rounded="50" id="avatarShadow" />
       </v-col>
       <v-col justify="end">
         <h3 text-align="center" class="ma-7">

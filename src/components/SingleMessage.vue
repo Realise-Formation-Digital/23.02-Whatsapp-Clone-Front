@@ -14,6 +14,7 @@
         <v-chip>
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
+        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)">  <svg-icon type="mdi" :path="path"></svg-icon></v-btn></v-col> 
       </div>
     </div>
   </div>
@@ -24,8 +25,13 @@ import { mapStores } from "pinia";
 import { chatStore } from "../store/store.js";
 import dayjsMixins from "../mixins/dayjs.js";
 import { gradientStyle } from "../libs/consts";
-
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiTrashCanOutline } from '@mdi/js';
 export default {
+  name: "my-cool-component",
+	components: {
+		SvgIcon
+  },
   name: "SingleMessage",
   mixins: [dayjsMixins],
   computed: {
@@ -33,15 +39,19 @@ export default {
   },
   data: () => {
     return {
-      gradientStyle
-
+      path: mdiTrashCanOutline,
+      gradientStyle,
     }
   },
   mounted() {
     // this.message = this.chatStore.getMessage
   },
   props: {
-
+    id : {
+      type: String,
+      default: '',
+      required: true
+    },
     message: {
       type: String,
       default: '',
@@ -57,11 +67,17 @@ export default {
       default: new Date().getTime(),
       required: false
     }
-  }
+  },
+  methods: {
+    deleteMessageFunc(messageId) {
+      this.chatStore.deleteMessageFunc(messageId)
+    }
+  },
 }
+
 </script>
 <style scoped> .messageFitContent {
    width: fit-content;
    min-width: 300px;
- }
+  }
 </style>
