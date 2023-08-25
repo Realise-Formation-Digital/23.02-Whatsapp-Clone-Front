@@ -22,13 +22,15 @@ const chatStore = defineStore("chat", {
     },
     //function to delete the messages
       async deleteMessageFunc(messageId) {
-        console.log ('store||delMessFunc',messageId)
         //for the back
-        // await axios.delete('https://quandMarcoAuraitFaitLeBac');
+        
+        // TODO const roomId = this.roomsAndMessages[_id]
+        // TODO await axios.delete('https://');
         //for the front
-        const indexMessages = this.roomsAndMessages[0].messages.indexOf(messageId)
+        const indexMessages = this.roomsAndMessages[0].messages.map((msg) => msg._id).indexOf(messageId)
+        console.log ('store||delMsgFunc||indMsg',indexMessages)
         this.roomsAndMessages[0].messages.splice(indexMessages, 1)
-    },
+      },
   
 
     SetMessage(value){
