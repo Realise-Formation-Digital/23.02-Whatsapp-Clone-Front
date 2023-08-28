@@ -20,6 +20,20 @@ const chatStore = defineStore("chat", {
     setUserName(value) {
       this.userName = value;
     },
+    //function to delete the messages
+      async deleteMessageFunc(messageId) {
+        //for the back
+        
+        // TODO const roomId = this.roomsAndMessages[_id]
+        // TODO await axios.delete('https://');
+        //for the front
+        //roomandmsg=room number 1, in the messages, we leave a layer so we have a array of msg id (from mango (in the back) so we have to put _)
+        const indexMessage = this.roomsAndMessages[0].messages.map((msg) => msg._id).indexOf(messageId)
+        console.log ('store||delMsgFunc||indMsg',indexMessage)
+        //leaves the selected message (indexMessage)
+        this.roomsAndMessages[0].messages.splice(indexMessage, 1)
+      },
+  
 
     SetMessage(value){
       this.message = value

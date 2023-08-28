@@ -18,8 +18,8 @@
     <v-main>
       <!-- <button @click="scrollToBottom()">Scroll</button> -->
         <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages"  :ref="targetRef">
-          <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
-          ></SingleMessage>
+          <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts" :id="messageItem._id">
+          </SingleMessage>
         </div>
         <div ref="targetRef"></div>
     </v-main>

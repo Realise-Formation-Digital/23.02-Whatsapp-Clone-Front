@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 let dayjsMixins = {
   methods: {
     //taper dayjs() pour la date d'auj, taper dayjs.local('fr-CH') pour la date local
+    //dates syntax instances
                                     //Wed, 12-July-2023:12:17:30
     todayFormattedDate_FullDateWellLongAndFullTime (timestamp) {
       return dayjs(timestamp).format('ddd, DD-MMMM-YYYY:HH:mm:ss');
