@@ -1,5 +1,5 @@
 <template>
-  <v-app class="rounded rounded-md">
+  <v-app class="rounded rounded-md bg-grey-lighten-2">
 
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
@@ -9,7 +9,7 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer> 
+    <v-navigation-drawer class="bg-grey-lighten-2"> 
     <chatList>
     </chatList> 
     </v-navigation-drawer>
@@ -23,7 +23,7 @@
         </div>
         <div ref="targetRef"></div>
     </v-main>
-    <v-footer app>
+    <v-footer app class="bg-grey-lighten-2" id="footerShadow" app>
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
@@ -37,8 +37,8 @@ import userProfil from '../components/userProfil.vue'
 import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
 import {mapStores} from 'pinia';
-import {chatStore} from '../store/store'
-import socket from '../libs/socket'
+import {chatStore} from '../store/store';
+import {socket} from '../libs/socket';
 import { ref } from 'vue'
 
 export default defineComponent({
@@ -69,7 +69,7 @@ export default defineComponent({
       console.log('Recieved message', args)
       this.roomsAndMessages[0].messages.push(args[0])
       console.log(args[0])
-      setTimeout(this.scrollToBottom, 100)});
+      setTimeout(this.scrollToBottom, 100)    });
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     };
@@ -87,6 +87,7 @@ export default defineComponent({
       try {
         //await this.chatStore.getMessage(this.chatStore.getUserName,data,this.chatStore.roomId)
         await this.chatStore.sendMessage(this.chatStore.getUserName, data, this.chatStore.getRoomId)
+        setTimeout(this.scrollToBottom, 100)
       } catch (e) {
         console.error(e)
       }
@@ -104,5 +105,8 @@ export default defineComponent({
 .chat-window {
   height: auto;
   overflow-y: auto;
+}
+#footerShadow {
+  box-shadow: 100px 100px 202px 50px #f340cc8b;
 }
 </style>

@@ -1,10 +1,12 @@
 <template>
     <v-container fluid>
         <v-col>
+
             <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
                 :chat-last-message="chat.messages[chat.messages.length - 1].message"
                 :ts="chat.messages[chat.messages.length - 1].ts" :style="gradientStyle">
             </chatCard>
+
         </v-col>
     </v-container>
 </template>
@@ -34,8 +36,7 @@ export default {
         this.messageList = await this.chatStore.getRoomsAndMessage[0].message
         console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
         this.getLastMessage()
-        // this.roomList = await this.chatStore.getRoomsAndMessage.name
-        // console.log('[roomList] [GET] [roomListByUser]', this.roomList)
+        console.log('GGGGGAAAAAAAAAH',messageList)
     },
 
 
