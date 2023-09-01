@@ -57,17 +57,19 @@ export default defineComponent({
   },
   async mounted() {
     console.log('ciao2')
+    //if logged in LocalStorage, set username in store
     if(localStorage.getItem('userName')){
       this.chatStore.setUserName(localStorage.getItem('userName'))
     }
     console.log('ciao')
-    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
+    //wait for rooms by username
+    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName),
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
     socket.on("new-message", (...args) => {
       console.log('Recieved message', args)
       this.roomsAndMessages[0].messages.push(args[0])
       console.log(args[0])
-      setTimeout(this.scrollToBottom, 100)    });
+      setTimeout(this.scrollToBottom, 100)});
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     };

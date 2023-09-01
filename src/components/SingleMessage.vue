@@ -78,7 +78,7 @@ export default {
     //calls the store.js
     deleteMessageFunc(messageId) {
       this.chatStore.deleteMessageFunc(messageId)
-    }
+    },
   },
 }
 
