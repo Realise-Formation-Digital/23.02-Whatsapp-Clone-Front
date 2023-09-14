@@ -4,50 +4,49 @@
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
       </userProfil>
-      <ChatBanner :room-name="roomName"> 
+      <ChatBanner :room-name="roomName">
       </ChatBanner>
     </v-app-bar>
 
 
-    <v-navigation-drawer class="bg-grey-lighten-2"> 
-    <chatList>
-    </chatList> 
+    <v-navigation-drawer class="bg-grey-lighten-2">
+      <chatList>
+      </chatList>
     </v-navigation-drawer>
 
 
     <v-main>
-      <!-- <button @click="scrollToBottom()">Scroll</button> -->
-        <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages"  :ref="targetRef">
-          <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts" :id="messageItem._id">
-          </SingleMessage>
-        </div>
-        <div ref="targetRef"></div>
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
+        <SingleMessage :ref="lastMessageTarget" :message="messageItem.message"
+          :sender="messageItem.sender" :ts="messageItem.ts" :id="messageItem._id">
+        </SingleMessage>
+      </div>
     </v-main>
-    <v-footer app class="bg-grey-lighten-2" id="footerShadow" app>
+    <v-footer app class="bg-grey-lighten-2" id="footerShadow">
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
 import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
-import {mapStores} from 'pinia';
-import {chatStore} from '../store/store';
-import {socket} from '../libs/socket';
-import { ref } from 'vue'
+import { mapStores } from 'pinia';
+import { chatStore } from '../store/store';
 
 export default defineComponent({
   data() {
     return {
+      lastMessage: "",
+      lastMessageTarget: ref(),
+      getRoomsAndMessage: [],
       roomsAndMessages: [],
       userName: '',
       roomName: '',
-      targetRef: ref()
     }
   },
   name: "Messages",
@@ -58,45 +57,53 @@ export default defineComponent({
   async mounted() {
     console.log('ciao2')
     //if logged in LocalStorage, set username in store
-    if(localStorage.getItem('userName')){
+    if (localStorage.getItem('userName')) {
       this.chatStore.setUserName(localStorage.getItem('userName'))
     }
     console.log('ciao')
     //wait for rooms by username
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName),
-    this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
-    socket.on("new-message", (...args) => {
-      console.log('Recieved message', args)
-      this.roomsAndMessages[0].messages.push(args[0])
-      console.log(args[0])
-      setTimeout(this.scrollToBottom, 100)    });
+      this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
+    //if username is empty, go to login page
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
     };
-    setTimeout(this.scrollToBottom, 500)
   },
-  
-  updated() {
-    // this.scrollToBottom()
-  },
-  methods: {
 
+  methods: {
+    //post message with axios and store
     async handleMessage(data) {
-      //todo faire check si ils sont vide
-      console.log('Component Message', this.chatStore) // data contient le message
       try {
-        //await this.chatStore.getMessage(this.chatStore.getUserName,data,this.chatStore.roomId)
-        await this.chatStore.sendMessage(this.chatStore.getUserName, data, this.chatStore.getRoomId)
-        setTimeout(this.scrollToBottom, 100)
+        await this.chatStore.sendMessage(this.chatStore.getUserName,
+          data, this.chatStore.getRoomId)
+          this.newMessage()
       } catch (e) {
         console.error(e)
       }
     },
 
-    scrollToBottom() {
-      this.$refs.targetRef.scrollIntoView({ behavior: 'smooth' })
+    async newMessage(lastMessage) {
+      try {
+        //all rooms and all messages in each
+        await this.chatStore.sendMessage && this.chatStore.insertMessageBySocket(this.getRoomsAndMessage, this.roomsAndMessages)
+        console.log('Alala', this.chatStore.sendMessage && this.chatStore.insertMessageBySocket (this.getRoomsAndMessage, this.roomsAndMessages))
+        if (this.chatStore.getRoomsAndMessage > this.chatStore.roomsAndMessages) {
+          console.log('lYas')
+          //id last message
+          lastMessage = this.getRoomsAndMessages[0].messages[0];
+          console.log('[Messages][newMessage][lastMessageId]', lastMessage)
+          this.scrollToBottom()
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    },
+    scrollToBottom(lastMessageId) {
+      lastMessageId = this.$refs.querySelector("#lastMessageId");
+      lastMessageId.scrollIntoView({ behavior: "smooth" });
     }
-  },
+
+  }
 })
 
 </script>
@@ -106,6 +113,9 @@ export default defineComponent({
   height: auto;
   overflow-y: auto;
 }
+
+;
+
 #footerShadow {
   box-shadow: 100px 100px 202px 50px #f340cc8b;
 }

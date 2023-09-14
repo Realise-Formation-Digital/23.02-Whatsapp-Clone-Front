@@ -1,8 +1,10 @@
 <template>
-  <div :class="sender == chatStore.getUserName ? 'd-flex justify-end px-9 my-2' : 'd-flex justify-start px-9 my-2'">
-    <div
-      :class="sender == chatStore.getUserName ? 'border rounded-xl rounded-be-0 messageFitContent' : 'border rounded-xl rounded-ts-0 messageFitContent'"
-      :style="gradientStyle">
+  <div :class="sender == chatStore.getUserName ?
+    'd-flex justify-end px-9 my-2' :
+    'd-flex justify-start px-9 my-2'">
+    <div :class="sender == chatStore.getUserName ?
+      'border rounded-xl rounded-be-0 messageFitContent' :
+      'border rounded-xl rounded-ts-0 messageFitContent'" :style="gradientStyle">
       <!-- sender of the messages -->
       <h4 class="pa-3 px-9">
         {{ sender }}
@@ -17,7 +19,8 @@
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
         <!-- button for messages deletions -->
-        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)"> <svg-icon type="mdi" :path="path"></svg-icon></v-btn></v-col> 
+        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)"> <svg-icon type="mdi"
+              :path="path"></svg-icon></v-btn></v-col>
       </div>
     </div>
   </div>
@@ -30,30 +33,31 @@ import dayjsMixins from "../mixins/dayjs.js";
 import { gradientStyle } from "../libs/consts";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiTrashCanOutline } from '@mdi/js';
+
+
 export default {
   name: "my-cool-component",
-	components: {
-		SvgIcon
+  components: {
+    SvgIcon
   },
   name: "SingleMessage",
   mixins: [dayjsMixins],
   //take the store/store.js, its like if it was in SingleMsg
+
   computed: {
     ...mapStores(chatStore)
   },
+
   data: () => {
     return {
-      //mdi= is the icon and gradient is the saved style in consts
       path: mdiTrashCanOutline,
       gradientStyle,
     }
   },
-  mounted() {
-    // this.message = this.chatStore.getMessage
-  },
+
   props: {
     //anything send to the parent
-    id : {
+    id: {
       type: String,
       default: '',
       required: true
@@ -82,10 +86,11 @@ export default {
   },
 }
 
+
+
 </script>
-<style scoped> 
-.messageFitContent {
+<style scoped> .messageFitContent {
    width: fit-content;
    min-width: 300px;
-  }
+ }
 </style>

@@ -5,8 +5,6 @@ import Login from "../pages/Login.vue";
 import Messages from "../pages/Messages.vue";
 import { chatStore } from "../store/store.js"
 
-
-
 const routes = [
   { path: '/', component: Home, beforeEnter: (to, from, next) => {
     const isUserLoggedIn = localStorage.getItem('userName')

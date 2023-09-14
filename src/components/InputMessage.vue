@@ -31,9 +31,11 @@
 <script>
 import EmojiPicker from "vue3-emoji-picker";
 import "../../node_modules/vue3-emoji-picker/dist/style.css";
-import '@mdi/font/css/materialdesignicons.css'
+import '@mdi/font/css/materialdesignicons.css';
 
 export default {
+    name: "inputMessage",
+
     data() {
         return {
             dialog: false,
@@ -44,12 +46,13 @@ export default {
 
     },
     components: {
-        EmojiPicker: EmojiPicker,
+        EmojiPicker: EmojiPicker
     },
+    props: {
+
+    },
+
     methods: {
-        // toggleEmojis() {
-        //     this.showEmojis = !this.showEmojis;
-        // },
         onSelectEmoji(emoji) {
             this.msgText += emoji.i;
         },

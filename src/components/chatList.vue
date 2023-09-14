@@ -32,13 +32,13 @@ export default {
     computed: {
         ...mapStores(chatStore)
     },
+
     async mounted() {
         this.messageList = await this.chatStore.getRoomsAndMessage[0].message
         console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
         this.getLastMessage()
         console.log('GGGGGAAAAAAAAAH',messageList)
     },
-
 
     methods: {
         enterConversation() {
