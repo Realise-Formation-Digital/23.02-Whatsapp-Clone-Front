@@ -5,7 +5,7 @@ import { chatStore } from "./../store/store.js";
 // initialisation client
 const socket = io(socketServerUrl);
 
-// Returns array of messages heard.
+// Returns  messages heard.
 socket.on("new-message", (...args) => {
   console.log("[socket][listening to last message's id]", 
   args[0]._id);

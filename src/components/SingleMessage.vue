@@ -25,7 +25,6 @@
     </div>
   </div>
 </template>
-dayjsMixins
 <script>
 import { mapStores } from "pinia";
 import { chatStore } from "../store/store.js";

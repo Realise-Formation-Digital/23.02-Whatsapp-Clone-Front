@@ -84,18 +84,19 @@ const chatStore = defineStore("chat", {
           sender: sender,
         });
         //search for room id
-        const foundRoom = this.roomsAndMessages.find(
-          (room) => room._id === roomId
-        );
-        //search for messages id
-        const foundMessage = foundRoom.messages.find(
-          (msg) => msg._id === messageInserted._id
-        );
-        //if message's id is not in room's id, push it
-        if (!foundMessage) foundRoom.messages.push(messageInserted);
-      } catch (e) {
-        console.error(e);
-      }
+        const foundRoom = this.getRoomsAndMessage.find(
+          (room) => room._id === roomId,
+          );
+          //search for messages id
+          const foundMessage = foundRoom.messages.find(
+            (msg) => msg._id === messageInserted._id,
+            
+            );
+            //if message's id is not in room's id, push it
+            if (!foundMessage) foundRoom.messages.push(messageInserted);
+          } catch (e) {
+            console.error(e);
+          }
     },
 
     async getAllRoomsByUser(userName) {

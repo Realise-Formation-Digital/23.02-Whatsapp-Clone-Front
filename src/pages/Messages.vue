@@ -1,5 +1,5 @@
 <template>
-  <v-app class="rounded rounded-md bg-grey-lighten-2">
+  <v-app class="rounded rounded-md bg-yellow-lighten-4">
 
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
@@ -9,27 +9,27 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer class="bg-grey-lighten-2">
+    <v-navigation-drawer class="bg-orange-lighten-3">
       <chatList>
       </chatList>
     </v-navigation-drawer>
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages">
-        <SingleMessage :ref="lastMessageTarget" :message="messageItem.message"
-          :sender="messageItem.sender" :ts="messageItem.ts" :id="messageItem._id">
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" ref="targetRef">
+        <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
+          :id="messageItem._id">
         </SingleMessage>
       </div>
     </v-main>
-    <v-footer app class="bg-grey-lighten-2" id="footerShadow">
+    <v-footer app id="footerShadow">
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
@@ -37,12 +37,13 @@ import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
 import { mapStores } from 'pinia';
 import { chatStore } from '../store/store';
+import { socket } from '../libs/socket.js'
+
 
 export default defineComponent({
   data() {
     return {
-      lastMessage: "",
-      lastMessageTarget: ref(),
+      lastMessageId: [],
       getRoomsAndMessage: [],
       roomsAndMessages: [],
       userName: '',
@@ -50,60 +51,69 @@ export default defineComponent({
     }
   },
   name: "Messages",
-  components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage },
-  computed: {
-    ...mapStores(chatStore)
-  },
+  components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage, socket },
+
+
   async mounted() {
-    console.log('ciao2')
-    //if logged in LocalStorage, set username in store
+    console.log('Mounted MEsasges')
+    console.log('[Messages][Set userName, logging]')
+    // //if logged in LocalStorage, set username in store
     if (localStorage.getItem('userName')) {
       this.chatStore.setUserName(localStorage.getItem('userName'))
     }
-    console.log('ciao')
-    //wait for rooms by username
-    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName),
-      this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
-    //if username is empty, go to login page
+    // this.lastMessageId = this.chatStore.getRoomsAndMessage[0].messages[0]._id
+    // //wait for rooms and messages by username
+    await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
+    this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
+    // //if username is empty, go to login page
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
+      console.log('[Messages][not logged, go to loggin page]')
     };
   },
 
+  computed: {
+    ...mapStores(chatStore),
+
+    // if watcher sees reactivity-> computed calls scroll to newMessage
+    // watchAndReactAtMessage() {
+    //   this.scrollToBottom(this.lastMessageId)
+    //   console.log('COMPUTED')
+    //   return (this.lastMessageId)
+    // }
+  },
+
+  watch: {
+    //observe store's getRoomsAndMessages last message changes
+    // watchAndReactAtMessage(newMessage, oldMessage) {
+    //   newMessage = this.lastMessageId,
+    //     console.log('WATCH', newMessage, oldMessage)
+    // }
+  },
+
   methods: {
-    //post message with axios and store
     async handleMessage(data) {
+      console.log('Component Message', this.chatStore) // data contient le message
       try {
+        //post message with axios and store
         await this.chatStore.sendMessage(this.chatStore.getUserName,
           data, this.chatStore.getRoomId)
-          this.newMessage()
       } catch (e) {
         console.error(e)
       }
     },
 
-    async newMessage(lastMessage) {
-      try {
-        //all rooms and all messages in each
-        await this.chatStore.sendMessage && this.chatStore.insertMessageBySocket(this.getRoomsAndMessage, this.roomsAndMessages)
-        console.log('Alala', this.chatStore.sendMessage && this.chatStore.insertMessageBySocket (this.getRoomsAndMessage, this.roomsAndMessages))
-        if (this.chatStore.getRoomsAndMessage > this.chatStore.roomsAndMessages) {
-          console.log('lYas')
-          //id last message
-          lastMessage = this.getRoomsAndMessages[0].messages[0];
-          console.log('[Messages][newMessage][lastMessageId]', lastMessage)
-          this.scrollToBottom()
-        }
-      } catch (e) {
-        console.error(e)
-      }
-    },
-    scrollToBottom(lastMessageId) {
-      lastMessageId = this.$refs.querySelector("#lastMessageId");
-      lastMessageId.scrollIntoView({ behavior: "smooth" });
-    }
+    // async observeLastMessage(){
+    // await this.chatStore.getRoomsAndMessage[0].messages[0]._id
+    // console.log('observeLastMessage', this.chatStore.getRoomsAndMessage[0].messages[0]._id)
+    // },
 
-  }
+    scrollToBottom() {
+      //call ref data and the watcher to trigger scroll
+      //this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
+      console.log('SCROLLTOBOTTOM')
+    },
+  },
 })
 
 </script>

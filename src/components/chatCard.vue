@@ -20,6 +20,7 @@ export default {
   mixins: [dayjsMixins,],
 
   name: "chatCard",
+
   props: {
     chatTitle: {
       type: String,
@@ -31,7 +32,7 @@ export default {
       default: "",
       required: true
     },
-   
+
     ts: {
       type: Number,
       default: new Date().getTime(),
@@ -44,9 +45,7 @@ export default {
       gradientStyle
     }
   },
+
 }
 </script>
-<style>
-
-
-</style>
+<style></style>

@@ -1,12 +1,9 @@
 <template>
     <v-container fluid>
         <v-col>
-
             <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
-                :chat-last-message="chat.messages[chat.messages.length - 1].message"
-                :ts="chat.messages[chat.messages.length - 1].ts" :style="gradientStyle">
+                :chat-last-message="displayLastMessage" :ts="displayLastMessage.ts" :style="gradientStyle">
             </chatCard>
-
         </v-col>
     </v-container>
 </template>
@@ -24,29 +21,45 @@ export default {
     data: () => {
         return {
             messageList: [],
-            chatLastMessage: {},
+            displayLastMessage: '',
             gradientStyle
         }
     },
 
     computed: {
-        ...mapStores(chatStore)
+        ...mapStores(chatStore),
+
+        
     },
 
     async mounted() {
-        this.messageList = await this.chatStore.getRoomsAndMessage[0].message
-        console.log('[messageList] [GET] [messageListByRoom]', this.messageList)
-        this.getLastMessage()
-        console.log('GGGGGAAAAAAAAAH',messageList)
+        this.getLastMessage(this.messageList, this.displayLastMessage)
+        console.log('Mounted', this.displayLastMessage)
+
+
+        this.displayLastMessage = await this.messageList[this.messageList.length - 1].message
+                // this.displayLastMessage = this.messageList.messages.pop()
+                console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
+        // this.getLastMessage(this.displayLastMessage)
+        // console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
+
+        // this.chatLastMessage = this.messageList.pop(this.messageList.length-1)
+        // this.chatLastMessage = this.chatStore.roomsAndMessages[0].messages
+        // console.log('BBBOOOOMgetting lastMessage from list', this.chatLastMessage);
+
     },
+
 
     methods: {
         enterConversation() {
         },
-        getLastMessage() {
+        async getLastMessage() {
+            this.messageList = await this.chatStore.getRoomsAndMessage[0].messages,   
+            console.log('[chatList][messageList]', this.messageList)
             if (this.messageList >= 1) {
-                this.chatLastMessage = this.messageList.slice(-1)
-                console.log('getting lastMessage from list', this.chatLastMessage);
+                this.displayLastMessage = this.messageList[this.messageList.length - 1].message
+                // this.displayLastMessage = this.messageList.messages.pop()
+                console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
             }
         }
     }
