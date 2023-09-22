@@ -9,7 +9,7 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer class="bg-orange-lighten-3">
+    <v-navigation-drawer class="bg-lime-lighten-1">
       <chatList>
       </chatList>
     </v-navigation-drawer>
