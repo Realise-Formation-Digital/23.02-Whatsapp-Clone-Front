@@ -1,8 +1,8 @@
 <template>
     <v-container fluid>
-        <v-col>
+        <v-col v-if="chatStore.getRoomsAndMessage.length > 0">
             <chatCard v-for="chat in chatStore.getRoomsAndMessage" :chat-title="chat.name"
-                :chat-last-message="displayLastMessage" :ts="displayLastMessage.ts" :style="gradientStyle">
+                :chat-last-message="chat.messages[chat.messages.length -1].message" :ts="chat.messages[chat.messages.length -1].ts" :style="gradientStyle">
             </chatCard>
         </v-col>
     </v-container>
@@ -27,19 +27,17 @@ export default {
     },
 
     computed: {
-        ...mapStores(chatStore),
-
-        
+        ...mapStores(chatStore)
     },
 
     async mounted() {
-        this.getLastMessage(this.messageList, this.displayLastMessage)
+/*        this.getLastMessage(this.messageList, this.displayLastMessage)
         console.log('Mounted', this.displayLastMessage)
 
 
         this.displayLastMessage = await this.messageList[this.messageList.length - 1].message
                 // this.displayLastMessage = this.messageList.messages.pop()
-                console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
+                console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)*/
         // this.getLastMessage(this.displayLastMessage)
         // console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
 
@@ -51,9 +49,7 @@ export default {
 
 
     methods: {
-        enterConversation() {
-        },
-        async getLastMessage() {
+/*        async getLastMessage() {
             this.messageList = await this.chatStore.getRoomsAndMessage[0].messages,   
             console.log('[chatList][messageList]', this.messageList)
             if (this.messageList >= 1) {
@@ -61,7 +57,7 @@ export default {
                 // this.displayLastMessage = this.messageList.messages.pop()
                 console.log('BBBOOOUUUMdisplayLastMessage', this.displayLastMessage)
             }
-        }
+        }*/
     }
 }
 

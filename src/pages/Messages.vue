@@ -16,11 +16,12 @@
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" ref="targetRef">
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" :ref="targetRef">
         <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
           :id="messageItem._id">
         </SingleMessage>
       </div>
+      <div ref="targetRef"></div>
     </v-main>
     <v-footer app id="footerShadow">
       <InputMessage @sendme="handleMessage" class="pr-8" />
@@ -29,13 +30,13 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import {defineComponent, ref} from 'vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
 import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
-import { mapStores } from 'pinia';
+import { mapStores, mapState } from 'pinia';
 import { chatStore } from '../store/store';
 import { socket } from '../libs/socket.js'
 
@@ -48,6 +49,7 @@ export default defineComponent({
       roomsAndMessages: [],
       userName: '',
       roomName: '',
+      targetRef: ref()
     }
   },
   name: "Messages",
@@ -74,21 +76,42 @@ export default defineComponent({
 
   computed: {
     ...mapStores(chatStore),
-
+    ...mapState(chatStore, {
+      roomsAndMessages: 'roomsAndMessages'
+    }),
     // if watcher sees reactivity-> computed calls scroll to newMessage
-    // watchAndReactAtMessage() {
-    //   this.scrollToBottom(this.lastMessageId)
-    //   console.log('COMPUTED')
-    //   return (this.lastMessageId)
-    // }
+
+/*    roomsAndMessages () {
+      if (this.chatStore.roomsAndMessages.length > 0){
+        console.log('computed', this.chatStore.roomsAndMessages[0].messages)
+        return this.chatStore.roomsAndMessages[0].messages
+      }
+
+       /!*this.scrollToBottom(this.lastMessageId)
+       console.log('COMPUTED')
+       return (this.lastMessageId)*!/
+    }*/
   },
 
   watch: {
+    roomsAndMessages: {
+      deep: true,
+      handler(){
+        setTimeout(this.scrollToBottom, 500)
+      }
+    }
     //observe store's getRoomsAndMessages last message changes
-    // watchAndReactAtMessage(newMessage, oldMessage) {
-    //   newMessage = this.lastMessageId,
-    //     console.log('WATCH', newMessage, oldMessage)
-    // }
+/*    test(newMessage, oldMessage) {
+      console.log('Watch')
+      newMessage = this.lastMessageId
+      console.log('WATCH', newMessage, oldMessage)
+    }*/
+/*    'chatStore.suscribe': {
+      deep: true,
+      handler(newVal) {
+        console.log(newVal)
+      }
+    }*/
   },
 
   methods: {
@@ -98,6 +121,8 @@ export default defineComponent({
         //post message with axios and store
         await this.chatStore.sendMessage(this.chatStore.getUserName,
           data, this.chatStore.getRoomId)
+
+        this.scrollToBottom()
       } catch (e) {
         console.error(e)
       }
@@ -110,7 +135,7 @@ export default defineComponent({
 
     scrollToBottom() {
       //call ref data and the watcher to trigger scroll
-      //this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
+      this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
       console.log('SCROLLTOBOTTOM')
     },
   },

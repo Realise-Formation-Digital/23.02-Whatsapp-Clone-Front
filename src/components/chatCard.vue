@@ -17,7 +17,7 @@ import dayjsMixins from '../mixins/dayjs';
 import { gradientStyle } from '../libs/consts';
 
 export default {
-  mixins: [dayjsMixins,],
+  mixins: [dayjsMixins],
 
   name: "chatCard",
 
