@@ -1,42 +1,40 @@
 import { defineStore } from "pinia";
 import AxiosLib from "../libs/axios";
 import { urls } from "../libs/consts";
+import { mdiConsoleNetworkOutline } from "@mdi/js";
 
 const chatStore = defineStore("chat", {
   state: () => ({
     userName: "",
     roomId: "",
     roomsAndMessages: [],
-    messageListByRoom: [],
-    
   }),
+
   getters: {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
-    getMessageListByRoom: (state) => state. messageListByRoom,
   },
+
   actions: {
     setUserName(value) {
       this.userName = value;
     },
     //function to delete the messages
-      async deleteMessageFunc(messageId) {
-        //for the back
-        
-        // TODO const roomId = this.roomsAndMessages[_id]
-        // TODO await axios.delete('https://');
-        //for the front
-        //roomandmsg=room number 1, in the messages, we leave a layer so we have a array of msg id (from mango (in the back) so we have to put _)
-        const indexMessage = this.roomsAndMessages[0].messages.map((msg) => msg._id).indexOf(messageId)
-        console.log ('store||delMsgFunc||indMsg',indexMessage)
-        //leaves the selected message (indexMessage)
-        this.roomsAndMessages[0].messages.splice(indexMessage, 1)
-      },
-  
+    async deleteMessageFunc(messageId) {
+      //find last message in array
+      const indexMessage = this.roomsAndMessages[0].messages
+      // create an array of msgs id's 
+        .map((msg) => msg._id)
+        //where message id is in index 
+        .indexOf(messageId);
+      console.log("store||delMsgFunc||indMsg", indexMessage);
+      //delete last indexMessage with splice method
+      this.roomsAndMessages[0].messages.splice(indexMessage, 1);
+    },
 
-    SetMessage(value){
-      this.message = value
+    SetMessage(value) {
+      this.message = value;
     },
 
     async postUser(userName) {
@@ -46,22 +44,6 @@ const chatStore = defineStore("chat", {
       console.log("[chatStore][Post] post user name", json);
       try {
         const result = await AxiosLib.postUser(urls.userLogin, json);
-        console.log(result);
-      } catch (e) {
-        throw new Error(e);
-      }
-    },
-    async test() {
-      try {
-        const result = await AxiosLib.get(urls.message);
-      } catch (e) {
-        throw new Error(e);
-      }
-    },
-
-    async postMessage(body) {
-      try {
-        const result = await AxiosLib.post(urls.message, body);
         console.log(result);
       } catch (e) {
         throw new Error(e);
@@ -88,28 +70,56 @@ const chatStore = defineStore("chat", {
     },
 
     async sendMessage(sender, message, roomId) {
-      console.log('[UserMessage][Messages] message send', message , sender , roomId)
-      try{
-        const messageInserted = await AxiosLib.post(urls.message,{message: message , roomId: roomId, sender: sender})
-        const foundRoom = this.roomsAndMessages.find((room) => room._id === roomId)
-        // foundRoom.messages.push(messageInserted)
-      }catch (e){
-        console.error(e)
-      }
+      console.log(
+        "[UserMessage][Messages] message send",
+        message,
+        sender,
+        roomId
+      );
+      try {
+        //axios request post
+        const messageInserted = await AxiosLib.post(urls.message, {
+          message: message,
+          roomId: roomId,
+          sender: sender,
+        });
+        //search for room id
+        const foundRoom = this.getRoomsAndMessage.find(
+          (room) => room._id === roomId,
+          );
+          //search for messages id
+          const foundMessage = foundRoom.messages.find(
+            (msg) => msg._id === messageInserted._id,
+            
+            );
+            //if message's id is not in room's id, push it
+            if (!foundMessage) foundRoom.messages.push(messageInserted);
+          } catch (e) {
+            console.error(e);
+          }
     },
 
-    async getAllRoomsByUser(userName){
+    async getAllRoomsByUser(userName) {
       try {
         const result = await AxiosLib.get(urls.roomsByUser + userName);
-        this.roomsAndMessages = result
-        this.roomId = result[0]._id
+        this.roomsAndMessages = result;
+        this.roomId = result[0]._id;
         console.log("result GET", this.roomsAndMessages);
-
       } catch (e) {
         console.error(e);
       }
     },
+
+   async insertMessageBySocket(message) {
+      console.log("[store][socket][message found]", message);
+      //find last message's id
+      const foundMessage = this.roomsAndMessages[0].messages.find((msg) => {
+        return msg._id === message._id;
+      });
+      console.log("[store][message not found]", foundMessage);
+      //if last message's id is not in array, push it
+      if (!foundMessage) this.roomsAndMessages[0].messages.push(message);
+    },
   },
 });
-
 export { chatStore };

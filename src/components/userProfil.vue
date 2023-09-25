@@ -1,5 +1,5 @@
 <template>
-  <v-container class="bg-cyan-lighten-4">
+  <v-container class="bg-amber-darken-2">
     <v-row class="pa-3 ma-3">
       <v-col justify="start">
         <AvatarComponent :toyNumber="10" :group="2" :rounded="50" id="avatarShadow" />
@@ -47,6 +47,6 @@ export default {
 </script>
 <style>
 #avatarShadow {
-  box-shadow: 3px 2px 5px 1px #6c35ba8b;
+  box-shadow: 3px 2px 5px 1px #ba61358b;
 }
 </style>

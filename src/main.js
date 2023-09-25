@@ -5,6 +5,7 @@ import vuetify from "./libs/vuetify.js";
 import dayjs from 'dayjs';
 import utcPlugin from 'dayjs-plugin-utc';
 import pinia from './libs/pinia.js'
+import './libs/socket.js'
 dayjs.extend(utcPlugin);
 
 createApp(App).use(router).use(vuetify).use(pinia).mount('#app')
