@@ -16,11 +16,12 @@
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" ref="targetRef">
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" :ref="targetRef">
         <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
           :id="messageItem._id">
         </SingleMessage>
       </div>
+      <div ref="targetRef"></div>
     </v-main>
     <v-footer app id="footerShadow">
       <InputMessage @sendme="handleMessage" class="pr-8" />
@@ -29,13 +30,13 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import {defineComponent, ref} from 'vue'
 import chatList from '../components/chatList.vue'
 import InputMessage from '../components/InputMessage.vue'
 import userProfil from '../components/userProfil.vue'
 import ChatBanner from '../components/ChatBanner.vue'
 import SingleMessage from '../components/SingleMessage.vue'
-import { mapStores } from 'pinia';
+import { mapStores, mapState } from 'pinia';
 import { chatStore } from '../store/store';
 import { socket } from '../libs/socket.js'
 
@@ -43,29 +44,27 @@ import { socket } from '../libs/socket.js'
 export default defineComponent({
   data() {
     return {
-      lastMessageId: [],
-      getRoomsAndMessage: [],
       roomsAndMessages: [],
       userName: '',
       roomName: '',
+      targetRef: ref()
     }
   },
   name: "Messages",
-  components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage, socket },
+  components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage,},
 
 
   async mounted() {
-    console.log('Mounted MEsasges')
+    console.log('Mounted Messages')
     console.log('[Messages][Set userName, logging]')
-    // //if logged in LocalStorage, set username in store
+    //if logged in LocalStorage, set username in store
     if (localStorage.getItem('userName')) {
       this.chatStore.setUserName(localStorage.getItem('userName'))
     }
-    // this.lastMessageId = this.chatStore.getRoomsAndMessage[0].messages[0]._id
-    // //wait for rooms and messages by username
+    //wait for rooms and messages by username
     await this.chatStore.getAllRoomsByUser(this.chatStore.getUserName)
     this.roomsAndMessages = this.chatStore.getRoomsAndMessage;
-    // //if username is empty, go to login page
+    //if username is empty, go to login page
     if (this.chatStore.getUserName == '') {
       this.$router.push('/login')
       console.log('[Messages][not logged, go to loggin page]')
@@ -73,22 +72,27 @@ export default defineComponent({
   },
 
   computed: {
+    //gives acces to all store
     ...mapStores(chatStore),
-
-    // if watcher sees reactivity-> computed calls scroll to newMessage
-    // watchAndReactAtMessage() {
-    //   this.scrollToBottom(this.lastMessageId)
-    //   console.log('COMPUTED')
-    //   return (this.lastMessageId)
-    // }
+    // gives access to pinia's "this.chatStore.roomsAndMessage"
+    // inside message component - !! especially in computed !!
+    // same as reading from chatStore.roomsAndMessage[]
+    ...mapState(chatStore, {
+      roomsAndMessages: 'roomsAndMessages'
+    }),
   },
-
+  
+  // if watcher sees reactivity in roomsAndMessage
   watch: {
-    //observe store's getRoomsAndMessages last message changes
-    // watchAndReactAtMessage(newMessage, oldMessage) {
-    //   newMessage = this.lastMessageId,
-    //     console.log('WATCH', newMessage, oldMessage)
-    // }
+    //our watchers name is the same as propriety in store 
+    roomsAndMessages: {
+      //deep means that every single little change will be noticed
+      deep: true,
+      //mandatory in deep watchers
+      handler(){
+        setTimeout(this.scrollToBottom, 500)
+      }
+    }
   },
 
   methods: {
@@ -97,21 +101,18 @@ export default defineComponent({
       try {
         //post message with axios and store
         await this.chatStore.sendMessage(this.chatStore.getUserName,
-          data, this.chatStore.getRoomId)
+          data, this.chatStore.getRoomId) 
+
+        this.scrollToBottom()
       } catch (e) {
         console.error(e)
       }
     },
 
-    // async observeLastMessage(){
-    // await this.chatStore.getRoomsAndMessage[0].messages[0]._id
-    // console.log('observeLastMessage', this.chatStore.getRoomsAndMessage[0].messages[0]._id)
-    // },
-
     scrollToBottom() {
       //call ref data and the watcher to trigger scroll
-      //this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
-      console.log('SCROLLTOBOTTOM')
+      this.$refs.targetRef.scrollIntoView({ behavior: "smooth" });
+      console.log('scrollToBottom')
     },
   },
 })
@@ -127,6 +128,6 @@ export default defineComponent({
 ;
 
 #footerShadow {
-  box-shadow: 100px 100px 202px 50px #f340cc8b;
+  box-shadow: 10px 10px 20px 10px #2980048b;
 }
 </style>

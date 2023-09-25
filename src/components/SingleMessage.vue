@@ -19,7 +19,7 @@
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
         <!-- button for messages deletions -->
-        <v-col><v-btn class="bg-red" @click="deleteMessageFunc(id)"> <svg-icon type="mdi"
+        <v-col><v-btn class="bg-orange-darken-2" @click="deleteMessageFunc(id)"> <svg-icon type="mdi"
               :path="path"></svg-icon></v-btn></v-col>
       </div>
     </div>
