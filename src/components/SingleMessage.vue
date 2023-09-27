@@ -19,7 +19,7 @@
           {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
         </v-chip>
         <!-- button for messages deletions -->
-        <v-col><v-btn class="bg-orange-darken-2" @click="deleteMessageFunc(id)"> <svg-icon type="mdi"
+        <v-col><v-btn class="bg-orange-darken-2" @click="deleteMessage(id)"> <svg-icon type="mdi"
               :path="path"></svg-icon></v-btn></v-col>
       </div>
     </div>
@@ -32,12 +32,13 @@ import dayjsMixins from "../mixins/dayjs.js";
 import { gradientStyle } from "../libs/consts";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiTrashCanOutline } from '@mdi/js';
+import {socket} from '../libs/socket.js'
 
 
 export default {
   name: "my-cool-component",
   components: {
-    SvgIcon
+    SvgIcon, socket
   },
   name: "SingleMessage",
   mixins: [dayjsMixins],
@@ -79,11 +80,13 @@ export default {
   },
   methods: {
     //calls the store.js
-    deleteMessageFunc(messageId) {
-      this.chatStore.deleteMessageFunc(messageId)
+    async deleteMessage(messageId) {
+      await this.chatstore.deleteMessageFunc(messageId) || this.chatStore.deleteMessageBySocket(getUserName)
+        console.log('[singleMessage][deleteMessageFunc]',messageId, getUserName)
+      },
     },
-  },
-}
+  }
+
 
 
 

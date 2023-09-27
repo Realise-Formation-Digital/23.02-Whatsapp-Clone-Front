@@ -13,4 +13,11 @@ socket.on("new-message", (...args) => {
   chatSt.insertMessageBySocket(args[0]);
 });
 
+//listen whatever message id (no order in args)
+// to delete in store
+socket.on('deleted-message', (...args) => {
+  console.log('[socket][deleted-message]', args[0]._id)
+  const chatSt = chatStore();
+  chatSt.deleteMessageBySocket(args[0]._id);
+})
 export { socket };
