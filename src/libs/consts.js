@@ -7,9 +7,8 @@ const urls = {
 const defaultUrl = 'http://localhost:3001/';
 
 const gradientStyle = {
-    backgroundColor: '#ffe69b',
-    backgroundImage: 'conic-gradient(#ffe683, #86f3fffb, #c9febcfb)',
-    boxShadow: '-1px 1px 4px 1px #ba61358b'  
+  backgroundImage: 'conic-gradient(#fef1bcfb, #fa98dead, #86f3fffb)', 
+  boxShadow: '-1px 2px 6px 2px #ad23bc71'  
   };
 
 const socketServerUrl = 'http://localhost:3000';

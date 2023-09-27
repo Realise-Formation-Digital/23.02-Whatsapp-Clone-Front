@@ -1,9 +1,15 @@
 <template>
-   <v-container class="bg-amber-darken-2">
+   <v-container class="bg-lime-darken-2">
     <v-row >
-    <v-col ><h3 class="text-center pt-2">RoomName{{ roomName }}</h3></v-col>
-    <v-col cols="1" class="me-6"><v-avatar icon="$vuetify"></v-avatar></v-col>   
-    <v-col><v-btn class="bg-cyan-lighten-5" @click="handleLogout()">Logout</v-btn></v-col> 
+    <v-col class="ml-16" cols="">
+        <h3 class="text-center text-amber-lighten-5 ml-16" id="titleFont" align-self="center">RoomName{{ roomName }}</h3>
+    </v-col>
+    <v-col cols="3" class="me-6" align-self="center">
+        <v-avatar class="ml-16" icon="$vuetify"></v-avatar>
+    </v-col>   
+    <v-col cols="3" align-self="center" class="ml-16">
+        <v-btn class="bg-amber-lighten-5 ml-16" justify="end"  @click="handleLogout()">Logout</v-btn>
+    </v-col> 
     </v-row>
 </v-container>
 </template>

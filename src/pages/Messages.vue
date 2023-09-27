@@ -1,6 +1,5 @@
 <template>
-  <v-app class="rounded rounded-md bg-yellow-lighten-4">
-
+  <v-app class=" bg-yellow-lighten-4" id="headerShadow">
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
       </userProfil>
@@ -9,21 +8,21 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer class="bg-lime-lighten-1">
+    <v-navigation-drawer permanent>
       <chatList>
       </chatList>
     </v-navigation-drawer>
 
 
     <v-main>
-      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" :ref="targetRef">
+      <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" :ref="targetScroll">
         <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
           :id="messageItem._id">
         </SingleMessage>
       </div>
       <div ref="targetRef"></div>
     </v-main>
-    <v-footer app id="footerShadow">
+    <v-footer app id="footer">
       <InputMessage @sendme="handleMessage" class="pr-8" />
     </v-footer>
   </v-app>
@@ -47,7 +46,7 @@ export default defineComponent({
       roomsAndMessages: [],
       userName: '',
       roomName: '',
-      targetRef: ref()
+      targetScroll: ref,
     }
   },
   name: "Messages",
@@ -119,15 +118,19 @@ export default defineComponent({
 
 </script>
 
-<style scoped>
-.chat-window {
-  height: auto;
-  overflow-y: auto;
-}
+<style>
+  /* #testDegr{
+   background-image: conic-gradient(#fef1bcfb, #fa98dead, #86f3fffb); 
+   box-shadow: -1px 2px 6px 2px #ad23bc71   
+  } */
 
-;
+#headerShadow {
+  box-shadow: 
+  -1px 2px 6px 2px #ad23bc71  ,
+  
+};
 
-#footerShadow {
-  box-shadow: 10px 10px 20px 10px #2980048b;
+#footer {
+  box-shadow: -1px 2px 6px 2px #ad23bc71;
 }
 </style>
