@@ -1,12 +1,15 @@
 <template>
-  <v-card class="rounded-xl rounded-be-0 ma-0 pa-4" @click="enterConversation()" :style="gradientStyle">
-    <v-card-title class="text-center text-truncate">
+  <v-card class="rounded-xl rounded-be-0 ma-0 pa-3" @click="enterConversation()" :style="gradientStyle">
+    <v-card-title class="text-center text-truncate pa-3 px-3 text-purple-darken-4" id="titleFont">
       {{ chatTitle }}
     </v-card-title>
-    <v-card-subtitle>
+    <v-card-subtitle class="px-3" id="generalFont">
       {{ chatLastMessage }}
     </v-card-subtitle>
-    <v-chip>
+    <v-chip class="ma-2"
+      color="purple-darken-4"
+      text-color="purple-darken-4"
+      prepend-icon="mdi-email">
       {{ todayFormattedDate_FullTime(ts) }}
     </v-chip>
   </v-card>
@@ -48,4 +51,21 @@ export default {
 
 }
 </script>
-<style></style>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&family=Urbanist:wght@500&display=swap');
+
+#titleFont{
+font-family: 'Poppins', sans-serif;
+font-size: 30px; 
+font-weight: bold
+}
+
+#generalFont{
+font-family: 'Poppins', sans-serif;
+font-size: 20px; 
+font-weight: light;
+};
+
+
+</style>
