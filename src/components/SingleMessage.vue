@@ -42,12 +42,12 @@ import dayjsMixins from "../mixins/dayjs.js";
 import { gradientStyle } from "../libs/consts";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiTrashCanOutline } from '@mdi/js';
-import {socket} from '../libs/socket.js'
+
 
 export default {
   name: "my-cool-component",
   components: {
-    SvgIcon, socket
+    SvgIcon
   },
   name: "SingleMessage",
   mixins: [dayjsMixins],

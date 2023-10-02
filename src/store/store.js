@@ -14,7 +14,6 @@ const chatStore = defineStore("chat", {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
-    getMessageIdToDelete: (state) => state.messageIdToDelete,
   },
 
   actions: {
