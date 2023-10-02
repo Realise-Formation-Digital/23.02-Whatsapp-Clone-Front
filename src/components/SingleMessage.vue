@@ -24,11 +24,12 @@
             </v-col>
             <v-col justify="end" cols="3" align-self="center" class="pa-7">
               <!-- button for messages deletions -->
-              <v-btn class="bg-orange-lighten-5" @click="deleteMessageFunc(id)"><svg-icon type="mdi"
+              <v-btn class="bg-orange-lighten-5" @click="deleteMessage()"><svg-icon type="mdi"
                   :path="path"></svg-icon></v-btn>
             </v-col>
           </v-row>
         </v-card-text>
+      <!-- sender of the messages -->
       </div>
     </div>
   </v-timeline-item>
@@ -59,7 +60,7 @@ export default {
   data: () => {
     return {
       path: mdiTrashCanOutline,
-      gradientStyle,
+      gradientStyle
     }
   },
 
@@ -87,12 +88,18 @@ export default {
     }
   },
   methods: {
-    //calls the store.js
-    deleteMessageFunc(messageId) {
-      this.chatStore.deleteMessageFunc(messageId)
+    // calls the store.js
+    async deleteMessage() {
+      try{
+        await this.chatStore.deleteMessageAxios(this.id)
+           console.log('[singleMessage][deleteMessageAxios]', this.id)
+      }catch(e){
+        console.error
+      }
     },
-  },
+  }
 }
+
 
 </script>
 <style >

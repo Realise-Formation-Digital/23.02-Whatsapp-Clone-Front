@@ -14,6 +14,19 @@ class AxiosLib {
       console.error(error);
       throw new Error(error);
     }
+  }  
+  
+  static async delete(route) {
+    console.log("[AxiosLib][Delete] Deleting resources with url", route);
+    try {
+      const response = await axios.delete(defaultUrl + route);
+      if (response.status !== 200)
+        throw new Error("Notre serveur ne vous à pas servi");
+      return response && response.data;
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
   }
 
   static async post(route, body) {
