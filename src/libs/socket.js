@@ -7,17 +7,17 @@ const socket = io(socketServerUrl);
 
 // Returns  messages heard.
 socket.on("new-message", (...args) => {
-  console.log("[socket][listening to last message's id]", 
+  console.log("[socket][new-message]", 
   args[0]._id);
   const chatSt = chatStore();
   chatSt.insertMessageBySocket(args[0]);
 });
 
-//listen whatever message id (no order in args)
-// to delete in store
+// listen whatever message id in room 0
+// delete in store
 socket.on('deleted-message', (...args) => {
-  console.log('[socket][deleted-message]', args[0]._id)
+  console.log('[socket][deleted-message]', args[0].messageId)
   const chatSt = chatStore();
-  chatSt.deleteMessageBySocket(args[0]._id);
+  chatSt.deleteMessageBySocket(args[0].messageId);
 })
 export { socket };

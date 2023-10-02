@@ -24,33 +24,12 @@
             </v-col>
             <v-col justify="end" cols="3" align-self="center" class="pa-7">
               <!-- button for messages deletions -->
-              <v-btn class="bg-orange-lighten-5" @click="deleteMessageFunc(id)"><svg-icon type="mdi"
+              <v-btn class="bg-orange-lighten-5" @click="deleteMessage()"><svg-icon type="mdi"
                   :path="path"></svg-icon></v-btn>
             </v-col>
           </v-row>
         </v-card-text>
-  <div :class="sender == chatStore.getUserName ?
-    'd-flex justify-end px-9 my-2' :
-    'd-flex justify-start px-9 my-2'">
-    <div :class="sender == chatStore.getUserName ?
-      'border rounded-xl rounded-be-0 messageFitContent' :
-      'border rounded-xl rounded-ts-0 messageFitContent'" :style="gradientStyle">
       <!-- sender of the messages -->
-      <h4 class="pa-3 px-9">
-        {{ sender }}
-      </h4>
-      <!-- message content -->
-      <div class="px-3">
-        {{ message }}
-      </div>
-      <!-- date -->
-      <div class="px-3 py-2 d-flex justify-end">
-        <v-chip>
-          {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
-        </v-chip>
-        <!-- button for messages deletions -->
-        <v-col><v-btn class="bg-orange-darken-2" @click="deleteMessage(id)"> <svg-icon type="mdi"
-              :path="path"></svg-icon></v-btn></v-col>
       </div>
     </div>
   </v-timeline-item>
@@ -64,7 +43,6 @@ import { gradientStyle } from "../libs/consts";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiTrashCanOutline } from '@mdi/js';
 import {socket} from '../libs/socket.js'
-
 
 export default {
   name: "my-cool-component",
@@ -82,7 +60,7 @@ export default {
   data: () => {
     return {
       path: mdiTrashCanOutline,
-      gradientStyle,
+      gradientStyle
     }
   },
 
@@ -110,20 +88,17 @@ export default {
     }
   },
   methods: {
-    //calls the store.js
-    deleteMessageFunc(messageId) {
-      this.chatStore.deleteMessageFunc(messageId)
-    },
-  },
-}
-    async deleteMessage(messageId) {
-      await this.chatstore.deleteMessageFunc(messageId) || this.chatStore.deleteMessageBySocket(getUserName)
-        console.log('[singleMessage][deleteMessageFunc]',messageId, getUserName)
-      },
+    // calls the store.js
+    async deleteMessage() {
+      try{
+        await this.chatStore.deleteMessageAxios(this.id)
+           console.log('[singleMessage][deleteMessageAxios]', this.id)
+      }catch(e){
+        console.error
+      }
     },
   }
-
-
+}
 
 
 </script>

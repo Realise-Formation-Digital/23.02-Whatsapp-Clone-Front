@@ -1,4 +1,5 @@
 const urls = {
+    deleteMessage: 'messages/',
     message: 'messages/',
     userLogin: 'users/login',
     roomsByUser: 'rooms/all/' // ajouter le username de suite

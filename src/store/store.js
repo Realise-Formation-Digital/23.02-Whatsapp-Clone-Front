@@ -14,6 +14,7 @@ const chatStore = defineStore("chat", {
     getUserName: (state) => state.userName,
     getRoomId: (state) => state.roomId,
     getRoomsAndMessage: (state) => state.roomsAndMessages,
+    getMessageIdToDelete: (state) => state.messageIdToDelete,
   },
 
   actions: {
@@ -58,12 +59,6 @@ const chatStore = defineStore("chat", {
     },
 
     async sendMessage(sender, message, roomId) {
-      console.log(
-        "[UserMessage][Messages] message send",
-        message,
-        sender,
-        roomId
-      );
       try {
         //axios request post
         const messageInserted = await AxiosLib.post(urls.message, {
@@ -71,14 +66,17 @@ const chatStore = defineStore("chat", {
           roomId: roomId,
           sender: sender,
         });
+
         //search for room id
         const foundRoom = this.getRoomsAndMessage.find(
-          (room) => room._id === roomId
-        );
+          (room) => room._id === roomId);
+        console.log("[sendMessAxios][foundRoomId]", foundRoom);
+
         //search for messages id
         const foundMessage = foundRoom.messages.find(
-          (msg) => msg._id === messageInserted._id
-        );
+          (msg) => msg._id === messageInserted._id);
+          console.log("[sendMessAxios][foundMessId]", foundMessage);
+
         //if message's id is not in room's id, push it
         if (!foundMessage) foundRoom.messages.push(messageInserted);
       } catch (e) {
@@ -87,15 +85,18 @@ const chatStore = defineStore("chat", {
     },
 
     async insertMessageBySocket(message) {
-      console.log("[store][socket][message found]", message);
+
       //find last message's id
-      const foundMessage = this.roomsAndMessages[0].messages.find((msg) => {
-        return msg._id === message._id;
-      });
-      console.log("[store][message not found]", foundMessage);
-      //if last message's id is not in array, push it
-      if (!foundMessage) this.roomsAndMessages[0].messages.push(message);
-    },
+     try {
+      const foundMessage = this.roomsAndMessages[0].messages.find((msg) => msg._id === message._id);
+        console.log("[Store][insertMessSocket][FindMessId]", message._id);
+
+        //if last message's id is not in array, push it
+        if (!foundMessage) this.roomsAndMessages[0].messages.push(message);
+    }catch(e){
+    console.error(e)
+  }
+},
 
     async getAllRoomsByUser(userName) {
       try {
@@ -109,36 +110,50 @@ const chatStore = defineStore("chat", {
     },
 
     //function to delete the messages
-    async deleteMessageFunc(messageId) {
-      //find last message in array
-      const indexMessage = this.roomsAndMessages[0].messages
-        // create an array of msgs id's
-        .map((msg) => msg._id)
-        //where message id is in index
-        .indexOf(messageId);
-      console.log("store||delMsgFunc||indMsg", indexMessage);
-      //delete last indexMessage with splice method
-      this.roomsAndMessages[0].messages.splice(indexMessage, 1);
+    async deleteMessageAxios(messageIdDelete, roomId) {
+      try {
+        const deleteMessageAxios = await AxiosLib.delete(urls.deleteMessage + messageIdDelete);
+        console.log("[Store][[DeleteAxios]][messageId]", deleteMessageAxios);
+
+        // find Message's Id in array
+        const foundMessageToDelete = this.getRoomsAndMessage[0].messages.find((msge) => msge._id === messageIdDelete);
+        console.log("[Store][DeleteMessAxios][FindMessId]", foundMessageToDelete);
+
+        //indexMessage in array of messages
+        const indexMessageToDelete =
+          this.getRoomsAndMessage[0].messages.indexOf(foundMessageToDelete);
+        console.log("[Store][DeleteMessAxios][IndexMess]", indexMessageToDelete);
+
+        //delete indexMessage with splice method
+        if (foundMessageToDelete) {
+          this.roomsAndMessages[0].messages.splice(indexMessageToDelete, 1);
+        }
+      } catch (e) {
+        console.error(e);
+      }
     },
 
     async deleteMessageBySocket(messageId) {
-      try{
-        console.log('ouille ouille ouille')
-        const indexMessage = this.roomsAndMessages[0].messages
-        console.log('indexMessage', indexMessage)
-        foundRoom = this.roomsAndMessages.find((room) => room._id == this.roomId)
-        //create index of messages
-        // console.log('mapMessagesId', msg._id)
-        // .indexOf(messageId)
-        // console.log('index of message Id', messageId)
-        // if(indexMessage ==! 1){
-        //   this.roomsAndMessages[0].messages.splice(indexMessage, 1);
-        // }
-        }catch(e){
-         console.error(e)
-        };
+      try {
+        const room = this.roomsAndMessages[0];
 
+        // find message's id to splice
+        const foundMessageId = room.messages.find((msg) => msg._id === messageId);
+        console.log("[store][deleteMessSocket][findMessId]", foundMessageId);
+
+        //find message's index
+        const indexMessage = room.messages.indexOf(foundMessageId);
+        console.log("[store][deleteMessSocket][indexMess]", indexMessage);
+
+        //if message's id is in room, splice at index
+        //to use splice method, need to specify index at which splice
+        if (foundMessageId) {
+          room.messages.splice(indexMessage, 1);
+        }
+      } catch (e) {
+        console.error(e);
       }
     },
-  });
+  },
+});
 export { chatStore };
