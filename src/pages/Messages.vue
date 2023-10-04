@@ -1,5 +1,5 @@
 <template>
-  <v-app class=" bg-yellow-lighten-4" id="headerShadow">
+  <v-app>
     <v-app-bar flat name="app-bar">
       <userProfil :user-name="userName">
       </userProfil>
@@ -8,13 +8,12 @@
     </v-app-bar>
 
 
-    <v-navigation-drawer permanent>
-      <chatList>
+    <v-navigation-drawer permanent class="gradDrawer">
+      <chatList fluid class="ma-0 pa-0">
       </chatList>
     </v-navigation-drawer>
 
-
-    <v-main>
+    <v-main class="degrMain">
       <div v-if="roomsAndMessages.length > 0" v-for="messageItem in roomsAndMessages[0].messages" :ref="targetScroll">
         <SingleMessage :message="messageItem.message" :sender="messageItem.sender" :ts="messageItem.ts"
           :id="messageItem._id">
@@ -22,8 +21,8 @@
       </div>
       <div ref="targetRef"></div>
     </v-main>
-    <v-footer app id="footer">
-      <InputMessage @sendme="handleMessage" class="pr-8" />
+    <v-footer app class="DegrInput bg-indigo-darken-4">
+      <InputMessage @sendme="handleMessage" class="DegrInput pr-8" />
     </v-footer>
   </v-app>
 </template>
@@ -48,6 +47,7 @@ export default defineComponent({
       roomName: '',
       targetScroll: ref,
     }
+
   },
   name: "Messages",
   components: { InputMessage, userProfil, chatList, ChatBanner, SingleMessage,},
@@ -117,20 +117,19 @@ export default defineComponent({
 })
 
 </script>
-
 <style>
-  /* #testDegr{
-   background-image: conic-gradient(#fef1bcfb, #fa98dead, #86f3fffb); 
-   box-shadow: -1px 2px 6px 2px #ad23bc71   
-  } */
 
-#headerShadow {
-  box-shadow: 
-  -1px 2px 6px 2px #ad23bc71  ,
-  
+.gradDrawer{
+  background-image: linear-gradient( to right, rgb(25, 2, 53) , rgb(50, 74, 193));
 };
+.degrMain {
+  background-image: radial-gradient(#6fb6f8fb, #e076c2ad) !important; 
+  }; 
 
-#footer {
-  box-shadow: -1px 2px 6px 2px #ad23bc71;
-}
+.DegrInput {
+    background-color: radial-gradient(#73b2fffb, #b52bffad) !important; 
+  }; 
+
+  
+
 </style>

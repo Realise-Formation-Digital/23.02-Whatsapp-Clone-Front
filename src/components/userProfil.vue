@@ -1,11 +1,11 @@
 <template>
-  <v-container class="bg-lime-darken-2">
+  <v-container class="bg-deep-purple-darken-2">
     <v-row>
       <v-col cols="3" align-self="center" justify="end" class="ml-16 mr-0">
         <AvatarComponent class="ml-16 mr-0" justify="end" :toyNumber="10" :group="2" :rounded="50" id="avatarShadow" />
       </v-col>
       <v-col justify="start">
-        <h3 cols="9" align-self="center" class="ml-0 mr-16 ma-7 pa-1 text-amber-lighten-5" id="titleFont">
+        <h3 cols="9" align-self="center" class="ml-0 mr-16 ma-7 pa-1 text-cyan-accent-2 font-weight-thin" id="titleFont">
           {{ this.chatStore.getUserName }}
         </h3>
       </v-col>
@@ -46,8 +46,7 @@ export default {
 }
 </script>
 <style>
-
 #avatarShadow {
-  box-shadow: 3px 2px 5px 1px #ba61358b;
+  box-shadow: 2px 1px 5px 3px #550e5b8b;
 }
 </style>

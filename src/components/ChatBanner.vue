@@ -1,14 +1,13 @@
 <template>
-   <v-container class="bg-lime-darken-2">
+   <v-container class="bg-deep-purple-darken-2">
     <v-row >
     <v-col class="ml-16" cols="">
-        <h3 class="text-center text-amber-lighten-5 ml-16" id="titleFont" align-self="center">RoomName{{ roomName }}</h3>
+        <h3 class="text-center text-cyan-accent-2 font-weight-thin ml-16" id="titleFont" align-self="center">RoomName{{ roomName }}</h3>
     </v-col>
-    <v-col cols="3" class="me-6" align-self="center">
-        <v-avatar class="ml-16" icon="$vuetify"></v-avatar>
+    <v-col cols="3"  align-self="center">
     </v-col>   
-    <v-col cols="3" align-self="center" class="ml-16">
-        <v-btn class="bg-amber-lighten-5 ml-16" justify="end"  @click="handleLogout()">Logout</v-btn>
+    <v-col cols="3" align-self="center">
+        <v-btn class="bg-light-blue-lighten-4 text-deep-purple-darken-2 font-weight-normal" variant="flat" @click="handleLogout()">Logout</v-btn>
     </v-col> 
     </v-row>
 </v-container>
@@ -45,4 +44,6 @@ import {chatStore} from '../store/store'
         }
     }
 </script>
+<style>
+</style>
 

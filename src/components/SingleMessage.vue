@@ -3,29 +3,28 @@
     <div :class="sender == chatStore.getUserName ? 'd-flex justify-end px-9 my-2' :
       'd-flex justify-start px-9 my-2'">
       <div :class="sender == chatStore.getUserName ? 'border rounded-xl rounded-be-0 messageFitContent' :
-        'border rounded-xl rounded-ts-0 messageFitContent'" :style="gradientStyle">
+        'border rounded-xl rounded-ts-0 messageFitContent'" :style="gradCardsMess">
         <!-- sender of the messages -->
-        <v-card-title class="pa-9 px-16 text-purple-darken-4" id="titleFont">
+        <v-card-title class="pa-9 px-16 text-purple-darken-4 text-start" id="titleFont">
           {{ sender }}
         </v-card-title>
         <!-- message content -->
         <v-card-text>
-          <div class="px-13" id="generalFont">
+          <div class="px-13 text-start" id="generalFont">
             {{ message }}
           </div>
         </v-card-text>
         <v-card-text class="px-3 py-2 d-flex justify-end">
           <!-- date -->
           <v-row align-self="start">
-            <v-col cols="8" align="start" no-gutter>
-              <v-chip class="ma-15 pa-5" color="purple-darken-4" prepend-icon="mdi-email">
+            <v-col cols="8" no-gutter>
+              <v-chip class="ma-8 pa-5 text-start" color="purple-darken-4" prepend-icon="mdi-email">
                 {{ todayFormattedDate_FullDateWellLongAndFullTime(ts) }}
               </v-chip>
             </v-col>
             <v-col justify="end" cols="3" align-self="center" class="pa-7">
               <!-- button for messages deletions -->
-              <v-btn class="bg-orange-lighten-5" @click="deleteMessage()"><svg-icon type="mdi"
-                  :path="path"></svg-icon></v-btn>
+              <v-btn class="bg-deep-purple-darken-2 text-light-blue-lighten-4" variant="flat" @click="deleteMessage()"><svg-icon type="mdi" class="font-weight-thin" :path="path"></svg-icon></v-btn>
             </v-col>
           </v-row>
         </v-card-text>
@@ -39,7 +38,7 @@
 import { mapStores } from "pinia";
 import { chatStore } from "../store/store.js";
 import dayjsMixins from "../mixins/dayjs.js";
-import { gradientStyle } from "../libs/consts";
+import { gradCardsMess } from "../libs/consts";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiTrashCanOutline } from '@mdi/js';
 
@@ -60,7 +59,7 @@ export default {
   data: () => {
     return {
       path: mdiTrashCanOutline,
-      gradientStyle
+      gradCardsMess
     }
   },
 
@@ -117,9 +116,5 @@ export default {
   font-weight: light;
 };
 
-/* #testDegr {
-  background-color: rgb(16, 74, 55);
-    background-image: conic-gradient(#ffe683, #86f3fffb, #c9febcfb); 
-    box-shadow: -1px 1px 4px 1px #ba61358b  
-  }; */
+
 </style>

@@ -2,18 +2,17 @@
     <v-container>
         <v-row>
             <v-col cols="11">
-                <v-textarea v-model="msgText" variant="solo" auto-grow bg-color="amber-lighten-5"
-                    @keydown.enter.prevent="sendMessageOnEnter">
+                <v-textarea hide-details class="bg-light-blue-lighten-3" :style="{backgroundImage: 'radial-gradient(#86f3fffb, #712089ad)'}" v-model="msgText" variant="outlined" auto-grow @keydown.enter.prevent="sendMessageOnEnter">
                 </v-textarea>
             </v-col>
             <v-col cols="1">
-                <v-dialog v-model="dialog" width="auto">
+                <v-dialog  v-model="dialog" width="auto">
                     <template v-slot:activator="{ props }">
-                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" class="pa-3" rounded="xl"
-                            icon="mdi-emoticon-happy-outline" color="amber-lighten-5"></v-btn>
+                        <v-btn :class="showEmojis" v-bind="props" @click="show = !show" class="pa-3" variant="flat" rounded="xl"
+                            icon="mdi-emoticon-happy-outline" color="deep-purple-lighten-3"></v-btn>
                     </template>
                     <v-card>
-                        <EmojiPicker v-model="msgText" @select="onSelectEmoji" />
+                        <EmojiPicker variant="flat" v-model="msgText" @select="onSelectEmoji" />
                         <v-card-actions>
                             <v-btn block @click="dialog = false">Revenir au message</v-btn>
                         </v-card-actions>
@@ -21,7 +20,7 @@
                 </v-dialog>
                 <br>
                 <br>
-                <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" color="amber-lighten-5"></v-btn>
+                <v-btn class="pa-3" icon="mdi-send" @click="sendMessage()" rounded="xl" variant="flat" color="deep-purple-lighten-3"></v-btn>
             </v-col>
         </v-row>
     </v-container>
@@ -73,4 +72,7 @@ export default {
 }
 </script>
 <style>
+ .DegrInput{
+    background-color: radial-gradient( #4d95ed, #1A237E); 
+  }; 
 </style>

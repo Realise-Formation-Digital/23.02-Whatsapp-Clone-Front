@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-xl rounded-be-0 ma-0 pa-3" @click="enterConversation()" :style="gradientStyle">
+  <v-card class="rounded-xl rounded-be-0 ma-0 pa-3" @click="enterConversation()" :style="gradCardsMess">
     <v-card-title class="text-center text-truncate pa-3 px-3 text-purple-darken-4" id="titleFont">
       {{ chatTitle }}
     </v-card-title>
@@ -17,7 +17,7 @@
 
 <script>
 import dayjsMixins from '../mixins/dayjs';
-import { gradientStyle } from '../libs/consts';
+import { gradCardsMess } from '../libs/consts';
 
 export default {
   mixins: [dayjsMixins,],
@@ -45,7 +45,7 @@ export default {
 
   data() {
     return {
-      gradientStyle
+      gradCardsMess
     }
   },
 
